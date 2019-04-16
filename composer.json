@@ -1,0 +1,26 @@
+{
+    "name": "yoyote/bd-shop",
+    "description": "",
+    "license": "MIT",
+    "scripts": {
+        "start": "php -S localhost:4000 -t public public/index.php"
+    },
+    "config": {
+        "process-timeout": 0
+    },
+    "autoload": {
+        "files": [
+            "src/App.php"
+        ],
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.0"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2",
+        "filp/whoops": "^2.3"
+    }
+}

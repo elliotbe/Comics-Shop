@@ -1,0 +1,37 @@
+<?php
+require('vendor/autoload.php');
+
+use App\Controllers\ProductController;
+use App\Router\Router;
+
+// Constants definition
+define('ROOT', dirname(__DIR__) . '/');
+
+// Register Whoops to pretty print error message
+$whoops = new \Whoops\Run;
+$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
+
+// Serve static files
+$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$is_cli_server = php_sapi_name() === 'cli-server';
+$is_index = $url_path === '/' || $url_path === '/index.php';
+if ($is_cli_server && file_exists(__DIR__ . $url_path) && $is_index === false) {
+  return false;
+}
+
+// Or proceed normally
+$router = new Router(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+$router->get('/', function () {
+  $controller = new ProductController();
+  $controller->home();
+});
+
+$router->get('/posts/:id/:label', function ($id, $label) {
+  // dump($id, $label);
+  $controller = new ProductController();
+  $controller->home();
+});
+
+$router->run();

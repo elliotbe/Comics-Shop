@@ -23,15 +23,7 @@ if ($is_cli_server && file_exists(__DIR__ . $url_path) && $is_index === false) {
 // Or proceed normally
 $router = new Router(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-$router->get('/', function () {
-  $controller = new ProductController();
-  $controller->home();
-});
-
-$router->get('/posts/:id/:label', function ($id, $label) {
-  // dump($id, $label);
-  $controller = new ProductController();
-  $controller->home();
-});
+$router->get('/', 'Product#home');
+$router->get('/posts/:id-:slug', 'Product#byColumn')->with('id', '[0-9]+')->with('slug', '[a-z0-9-]+');
 
 $router->run();

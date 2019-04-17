@@ -48,7 +48,7 @@ class Router {
     throw new RouterException('No matching routes', 2);
   }
 
-  public function url (string $name, array $params = []) {
+  public function url (string $name, array $params = []) :string {
     if (isset($this->named_routes[$name]) === false) {
       throw new RouterException('No route matching this name', 3);
     }

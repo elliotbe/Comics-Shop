@@ -18,13 +18,6 @@ class App {
     return self::$instance;
   }
 
-  public static function config() :Config {
-    if (is_null(self::$config)) {
-      self::$config = new Config(['.env']);
-    }
-    return self::$config;
-  }
-
   public static function database() :Database {
     if (is_null(self::$database)) {
       self::$database = new Database(
@@ -42,15 +35,16 @@ class App {
     return self::$session;
   }
 
+  public static function config() :Config {
+    if (is_null(self::$config)) {
+      self::$config = new Config(['.env']);
+    }
+    return self::$config;
+  }
+
   public static function getModel(string $model_name) :Model {
     $model = 'App\\Models\\' . ucfirst($model_name) . 'Model';
     return new $model(App::database());
-  }
-
-  public static function handleErrors() {
-    $whoops = new \Whoops\Run;
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    $whoops->register();
   }
 
 }

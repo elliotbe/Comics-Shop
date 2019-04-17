@@ -16,6 +16,15 @@ class Model {
     $this->db = $db;
   }
 
+  public function createTable() {
+    $stmt = "
+      CREATE TABLE IF NOT EXISTS $this->table (
+        title VARCHAR(255) NOT NULL
+      ) ENGINE=INNODB
+    ";
+    return $this->db->query($stmt);
+  }
+
   public function all() {
     return $this->queryModel("SELECT * FROM $this->table");
   }

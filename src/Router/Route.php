@@ -15,7 +15,7 @@ class Route {
 
   public function match(string $url) :bool {
     $url = trim($url, '/');
-    $path = preg_replace('#:([\w]+)#', '([^/]+)', $this->path);
+    $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
     $regex = "#^$path$#i";
 
     if (\preg_match($regex, $url, $matches) == false) {
@@ -32,6 +32,34 @@ class Route {
     if (is_object($this->callback)) {
       return \call_user_func_array($this->callback, $this->matches);
     }
+
+    if (is_string($this->callback)) {
+      $array = explode('#', $this->callback);
+      $controller_name = "\\App\\Controllers\\{$array[0]}Controller";
+      $controller = new $controller_name();
+      $method = $array[1];
+      return \call_user_func_array([$controller, $method], $this->matches);
+    }
+  }
+
+  public function with(string $param, string $regex) :self {
+    $this->params[$param] = str_replace('(', '(?:', $regex);
+    return $this;
+  }
+
+  public function getUrl(array $params) :string {
+    $path = $this->path;
+    foreach ($params as $key => $value) {
+      $path = str_replace(":$key", $value, $path);
+    }
+    return $path;
+  }
+
+  private function paramMatch(array $match) :string {
+    if (isset($this->params[$match[1]])) {
+      return '(' . $this->params[$match[1]] . ')';
+    }
+    return '([^/]+)';
   }
 
 

@@ -4,13 +4,12 @@ namespace App\Controllers;
 class ProductController extends Controller {
 
   public function home() {
-    $foo = 'foo';
-    $bar = 'bar';
-    $this->render('home', compact($foo, $bar));
+    $this->render('home');
   }
 
   public function byColumn() {
-    return 'byColumn';
+    echo 'byColumn' . '<br>';
+    echo '<a href="/">home</a>';
   }
 
   public function modalContent() {

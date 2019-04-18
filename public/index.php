@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
+define('ROOT', dirname(__DIR__) . '/');
+
 require('vendor/autoload.php');
 
 use App\Controllers\ProductController;
 use App\Router\Router;
-
-// Constants definition
-define('ROOT', dirname(__DIR__) . '/');
 
 // Register Whoops to pretty print error message
 $whoops = new \Whoops\Run;

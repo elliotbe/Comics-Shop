@@ -1,7 +1,8 @@
 <?php
 namespace App\Models;
 
-use App\Database;
+use PDOStatement;
+use App\Database\Database;
 
 
 class Model {
@@ -12,28 +13,34 @@ class Model {
   public function __construct(Database $db) {
     $table = explode('\\', get_called_class());
     $table = strtolower(str_replace('Model', '', end($table)));
-    $this->table = $table;
+    if (is_null($this->table)) {
+      $this->table = $table;
+    }
     $this->db = $db;
   }
 
-  public function createTable() {
-    $stmt = "
-      CREATE TABLE IF NOT EXISTS $this->table (
-        title VARCHAR(255) NOT NULL
-      ) ENGINE=INNODB
-    ";
-    return $this->db->query($stmt);
+  public function all() :array {
+    return $this->queryModel("SELECT * FROM $this->table")->fetchAll();
   }
 
-  public function all() {
-    return $this->queryModel("SELECT * FROM $this->table");
+  public function upsert(array $fields, string $id = null) :PDOStatement {
+    $sql_parts = [];
+    $attributes = [];
+    foreach($fields as $k => $v) {
+      $sql_parts[] = "$k = :$k";
+      $attributes[$k] = $v;
+    }
+    $sql = implode(', ', $sql_parts);
+    if ($id) {
+      $attributes['id'] = $id;
+      return $this->db->query("UPDATE $this->table SET $sql WHERE id = :id", $attributes);
+    }
+    return $this->db->query("INSERT INTO $this->table SET $sql", $attributes);
   }
 
-  protected function queryModel($statement, $params = null) {
+  protected function queryModel($statement, $params = null) :PDOStatement {
     $entity = explode('\\', get_called_class());
     $entity = str_replace('Model', 'Entity', end($entity));
-    // dump($entity); die();
-
     return $this->db->query($statement, $params, 'App\\Entities\\' . $entity);
   }
 

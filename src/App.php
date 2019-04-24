@@ -1,5 +1,5 @@
 <?php
-use App\Database;
+use App\Database\Database;
 use App\Session;
 use App\Config\Config;
 use App\Models\Model;

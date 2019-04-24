@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 function slugify(string $string, string $delimiter = '-') :string {
   $old_locale = setlocale(LC_ALL, '0');
@@ -15,4 +16,8 @@ function slugify(string $string, string $delimiter = '-') :string {
 function getUrl(string $name, array $params = []) :string {
   global $router;
   return $router->url($name, $params);
+}
+
+function printLine(string $arg) {
+  echo "$arg\n";
 }

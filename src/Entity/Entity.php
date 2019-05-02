@@ -10,7 +10,8 @@ class Entity {
   }
 
   public function __get(string $name) :string {
-    $method = 'get' . ucwords($name);
+    $name = ucfirst(snakeToCamel($name));
+    $method = "get$name";
     return $this->$method();
   }
 

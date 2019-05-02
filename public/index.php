@@ -30,9 +30,12 @@ $router->get('/', 'Product#all');
 $router->get('/:column/:id-:slug', 'Product#byColumn')->with('id', '[0-9]+');
 $router->get('/:id-:slug', 'Product#single')->with('id', '[0-9]+');
 
-// $router->get('/page-not-found', 'App#fourOhFour');
+$router->get('/login', 'Product#all');
+$router->get('/basket', 'Product#all');
+
 $router->get('/sandbox', 'App#sandbox');
 $router->get('/initialize', 'App#initialize');
+
 $router->get('/:fourOhFour', 'App#fourOhFour')->with('fourOhFour', '.+');
 
 $router->run();

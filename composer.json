@@ -1,9 +1,9 @@
 {
-    "name": "yoyote/bd-shop",
+    "name": "yoyote/comics-shop",
     "description": "",
     "license": "MIT",
     "scripts": {
-        "build-css": "stylus stylus/index.styl --out public/css/style.css --include-css --resolve-url --sourcemap --watch --resolve-url",
+        "build-css": "stylus stylus/style.styl --out public/css/style.css --include-css --resolve-url --sourcemap --watch --resolve-url",
         "start": [
             "php extra/init-db.php",
             "php -S localhost:4000 -t public public/index.php"

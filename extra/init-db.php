@@ -11,7 +11,7 @@ $db_user = App::config()->get('DB_USER');
 $db_pass = App::config()->get('DB_PASS');
 $db = new DatabaseSchema($db_host, null, $db_user, $db_pass);
 
-// $db->query("DROP DATABASE `$db_name`");
+$db->query("DROP DATABASE `$db_name`");
 $db_exists = !(bool)$db->createDatabase($db_name)->rowCount();
 if ($db_exists) {
   printLine("The database $db_name already exist.");
@@ -35,7 +35,7 @@ $db->addTable('product', [
   $db->addColumn('supplier_id', 'INT'),
   $db->addColumn('ref_editor', 'VARCHAR', '24', 'UNIQUE'),
   $db->addColumn('ref_supplier', 'VARCHAR', '24', 'UNIQUE'),
-  $db->addColumn('synopsis', 'TEXT', null, "NOT NULL DEFAULT 'Pas de résumé disponible.'"),
+  $db->addColumn('synopsis', 'TEXT'),
 ]);
 printLine("Create table 'product'");
 

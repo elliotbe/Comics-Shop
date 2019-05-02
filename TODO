@@ -1,12 +1,11 @@
-- escape mysql column
-- remake logo
-- adapt page title
-- icone
+- escape mysql column ✔
+- adapt page title ✔
+- remake logo ✔
+- redirect if bad page ✔
 - img or default img algo
 - modelize db
-
+- icone
 - session and flash message
-- redirect if bad page
 - search bar for title
 - pagination
 

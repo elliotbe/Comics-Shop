@@ -4,6 +4,29 @@ namespace App\Entity;
 
 class ProductEntity extends Entity {
 
+  public function __construct() {
+    array_map(function ($field) {
+      $this->$field !== null ? $this->$field = capitalize($this->$field) : null;
+    }, ['title', 'author', 'category', 'hero', 'editor', 'supplier']);
+
+    $this->synopsis ?? $this->synopsis = 'Pas de résumé disponible.';
+  }
+
+  public function getSlug() :string {
+    return slugify($this->title);
+  }
+
+  public function getImgSrc() :string {
+    $img_folder = array_slice(scandir(ROOT . 'public/img/product/'), 2);
+    $file_name = strtolower($this->ref) . '.jpg';
+    $img_src = array_reduce($img_folder, function ($carry, $item) use ($file_name) {
+      $item === $file_name ? $carry = "/img/product/$file_name" : null;
+      return $carry;
+    }, '/img/product/default.jpg');
+    return $img_src;
+  }
+
+
   /** @var int $id */
   public $id;
 
@@ -55,15 +78,7 @@ class ProductEntity extends Entity {
   /** @var string|null $ref_supplier */
   public $ref_supplier;
 
-  /** @var string $synopsis */
+  /** @var string|null $synopsis */
   public $synopsis;
-
-  public function getImg() :string {
-    return 'I\'m a beautiful img, I swear !';
-  }
-
-  public function getSlug() :string {
-    return slugify($this->title);
-  }
 
 }

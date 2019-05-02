@@ -17,8 +17,8 @@ class AppController extends Controller {
   }
 
   public function sandbox() {
-    $test_query = \App::database()->query("SELECT IF(:synopsis IS NOT NULL, :synopsis, 'DEFAULT')", ['synopsis' => null]); // condition 2 si faux
-    $this->render('sandbox', compact('test_query'), 'Sandbox', 'pre');
+    $product = \App::getModel('Product')->getOne(492);
+    $this->render('sandbox', compact('product'), 'Sandbox', 'pre');
   }
 
   public function fourOhFour() {

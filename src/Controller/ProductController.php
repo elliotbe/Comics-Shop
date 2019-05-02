@@ -5,9 +5,12 @@ namespace App\Controller;
 
 class ProductController extends Controller {
 
+  private $categories;
+
   public function __construct() {
     $this->loadModel('Product');
     $this->loadModel('Category');
+    $this->categories = $this->Category->getAll();
   }
 
   public function all() {
@@ -18,7 +21,8 @@ class ProductController extends Controller {
 
   public function single(int $id) {
     $product = $this->Product->getOne($id);
-    $this->render('single', compact('product'));
+    $categories = $this->Category->getAll();
+    $this->render('single', compact('product', 'categories'));
   }
 
   public function byColumn(string $column, int $id) {
@@ -26,7 +30,8 @@ class ProductController extends Controller {
     try {
       $products = $this->Product->getAllByColumn($column, $id);
       $page_title = capitalize($products[0]->$column);
-      $this->render('home', compact('products', 'categories'), $page_title);
+      $main_title = $column === 'category' ? null : $page_title;
+      $this->render('home', compact('products', 'categories', 'main_title'), $page_title);
     } catch (\Exception $e) {
       // $error_msg =  "Il n'y a rien ici, obsolument rien.";
       $error_msg = $e->getMessage();

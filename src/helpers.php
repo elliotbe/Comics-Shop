@@ -52,3 +52,26 @@ function getRandomGif() :string {
   $random_gif = $gif_folder[rand(0, $number_of_gif - 1)];
   return "/media/error/$random_gif";
 }
+
+function escapeSQL($string) :string {
+  $string = str_replace('`', '``', $string);
+  return "`$string`";
+}
+
+function snakeToCamel(string $name) :string {
+  $name = explode('_', $name);
+  $name = array_map(function ($name_part) use ($name) {
+    return $name[0] !== $name_part ? ucfirst($name_part) : $name_part;
+  }, $name);
+  $name = implode('', $name);
+  return $name;
+}
+
+function camelToSnake(string $name) {
+  $name = str_split($name);
+  $name = array_map(function ($char) {
+    return ctype_upper($char) ? '_' . strtolower($char) : $char;
+  }, $name);
+  $name = implode('', $name);
+  return $name;
+}

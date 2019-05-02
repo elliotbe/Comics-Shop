@@ -19,7 +19,7 @@ class Controller {
     require($this->template_path . "/$template_name.php");
   }
 
-  protected function loadModel($model_name) {
+  protected function loadModel($model_name) :void {
     $this->$model_name = \App::getModel($model_name);
   }
 

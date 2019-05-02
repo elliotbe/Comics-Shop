@@ -28,10 +28,10 @@ class ProductModel extends Model {
   }
 
   public function getAllByColumn(string $column, int $id) :array {
-    $column = "{$column}_id";
+    $column = escapeSQL("{$column}_id");
     return $this->queryModel(
       "SELECT * FROM $this->table
-        WHERE `$column` = :id
+        WHERE $column = :id
         LIMIT $this->offset, $this->limit
       ",
       ['id' => $id]
@@ -55,8 +55,7 @@ class ProductModel extends Model {
           hero_id = (SELECT id FROM hero WHERE content = :hero),
           editor_id = (SELECT id FROM editor WHERE content = :editor),
           supplier_id = (SELECT id FROM supplier WHERE content = :supplier),
-          ref_editor = :ref_editor, ref_supplier = :ref_supplier,
-          synopsis = IF(:synopsis IS NOT NULL, :synopsis, DEFAULT(synopsis))
+          ref_editor = :ref_editor, ref_supplier = :ref_supplier, synopsis = :synopsis
         ", $product_data);
       $this->db->getPdo()->commit();
       return $query;

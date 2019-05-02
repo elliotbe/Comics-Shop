@@ -2,10 +2,11 @@
 use App\Database\Database;
 use App\Session;
 use App\Config\Config;
-use App\Models\Model;
+use App\Model\Model;
 
 class App {
 
+  public static $site_name = 'BD Shop';
   private static $instance;
   private static $config;
   private static $database;
@@ -43,7 +44,7 @@ class App {
   }
 
   public static function getModel(string $model_name) :Model {
-    $model = 'App\\Models\\' . ucfirst($model_name) . 'Model';
+    $model = 'App\\Model\\' . ucfirst($model_name) . 'Model';
     return new $model(App::database());
   }
 

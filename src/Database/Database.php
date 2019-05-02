@@ -2,11 +2,6 @@
 declare(strict_types = 1);
 namespace App\Database;
 
-use PDO;
-use PDOStatement;
-use PDOException;
-
-
 class Database {
 
   protected $pdo;
@@ -18,11 +13,12 @@ class Database {
       $dsn = "mysql:host=$host;dbname=$db_name;port=3306;charset=utf8mb4";
     }
     try {
-      $this->pdo = new PDO($dsn, $username, $password);
-      $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    } catch (PDOException $e) {
-      throw new PDOException($e->getMessage(), (int)$e->getCode());
+      $this->pdo = new \PDO($dsn, $username, $password);
+      $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+      // Too many issues whith :
+      // $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+    } catch (\PDOException $e) {
+      throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
   }
 
@@ -30,16 +26,16 @@ class Database {
     $this->pdo = null;
   }
 
-  public function getPdo() :PDO {
+  public function getPdo() :\PDO {
     return $this->pdo;
   }
 
-  public function query($statement, $params = null, $class_name = null) :PDOStatement {
+  public function query($statement, $params = null, $class_name = null) :\PDOStatement {
     $req = $this->pdo->prepare($statement);
     if ($class_name) {
-      $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+      $req->setFetchMode(\PDO::FETCH_CLASS, $class_name);
     } else {
-      $req->setFetchMode(PDO::FETCH_OBJ);
+      $req->setFetchMode(\PDO::FETCH_OBJ);
     }
     $req->execute($params);
     return $req;

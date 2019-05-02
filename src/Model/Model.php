@@ -1,8 +1,9 @@
 <?php
-namespace App\Models;
+declare(strict_types = 1);
+namespace App\Model;
 
-use PDOStatement;
 use App\Database\Database;
+use App\Entity\Entity;
 
 
 class Model {
@@ -19,11 +20,18 @@ class Model {
     $this->db = $db;
   }
 
-  public function all() :array {
-    return $this->queryModel("SELECT * FROM $this->table")->fetchAll();
+  public function getAll() :array {
+    return $this->queryModel("SELECT * FROM $this->table ORDER BY id")->fetchAll();
   }
 
-  public function upsert(array $fields, string $id = null) :PDOStatement {
+  public function getOne($id) :Entity {
+    return $this->queryModel(
+      "SELECT * FROM $this->table WHERE id = ? LIMIT 1",
+      [$id]
+    )->fetch();
+  }
+
+  public function upsert(array $fields, string $id = null) :\PDOStatement {
     $sql_parts = [];
     $attributes = [];
     foreach($fields as $k => $v) {
@@ -38,10 +46,14 @@ class Model {
     return $this->db->query("INSERT INTO $this->table SET $sql", $attributes);
   }
 
-  protected function queryModel($statement, $params = null) :PDOStatement {
+  protected function queryModel($statement, $params = null) :\PDOStatement {
     $entity = explode('\\', get_called_class());
     $entity = str_replace('Model', 'Entity', end($entity));
-    return $this->db->query($statement, $params, 'App\\Entities\\' . $entity);
+    return $this->db->query($statement, $params, 'App\\Entity\\' . $entity);
+  }
+
+  protected function escapeSql(string $string) :string {
+    return $string;
   }
 
 }

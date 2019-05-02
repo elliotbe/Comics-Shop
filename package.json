@@ -1,0 +1,13 @@
+{
+  "name": "comics-shop",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "stylus": "^0.54.5",
+    "typeface-oleo-script": "^0.0.72"
+  },
+  "installConfig": {
+    "pnp": true
+  }
+}

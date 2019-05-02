@@ -1,3 +1,11 @@
+# composer folder
 vendor/
+
+# yarn foler/files
+node_modules
+yarn.lock
+pnp.js
+
+# other files
 .env.local
 nohup.out

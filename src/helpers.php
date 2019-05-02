@@ -13,11 +13,42 @@ function slugify(string $string, string $delimiter = '-') :string {
   return $clean;
 }
 
-function getUrl(string $name, array $params = []) :string {
+function generateUrl(string $name, array $params = []) :string {
   global $router;
   return $router->url($name, $params);
 }
 
-function printLine(string $arg) {
+function printLine(string $arg) :void {
   echo "$arg\n";
+}
+
+function preDump(...$args) :void {
+  echo '<pre>';
+  foreach ($args as $arg) {
+    echo $arg;
+  }
+  echo '</pre>';
+}
+
+function setPageName(?string $page_name) :string {
+  $site_name = 'Comics Shop';
+  if (is_null($page_name)) {
+    return $site_name;
+  }
+  return "$page_name | $site_name";
+}
+
+function capitalize(string $string) :string {
+  return ucwords(strtolower($string));
+}
+
+function redirect(string $url) :void {
+  header("Location: $url");
+}
+
+function getRandomGif() :string {
+  $gif_folder = array_slice(scandir(ROOT . 'public/media/error/'), 2);
+  $number_of_gif = count($gif_folder);
+  $random_gif = $gif_folder[rand(0, $number_of_gif - 1)];
+  return "/media/error/$random_gif";
 }

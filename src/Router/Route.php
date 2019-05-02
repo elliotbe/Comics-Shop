@@ -35,7 +35,7 @@ class Route {
 
     if (is_string($this->callback)) {
       $array = explode('#', $this->callback);
-      $controller_name = "\\App\\Controllers\\{$array[0]}Controller";
+      $controller_name = "\\App\\Controller\\{$array[0]}Controller";
       $controller = new $controller_name();
       $method = $array[1];
       return \call_user_func_array([$controller, $method], $this->matches);
@@ -52,7 +52,7 @@ class Route {
     foreach ($params as $key => $value) {
       $path = str_replace(":$key", $value, $path);
     }
-    return $path;
+    return "/$path";
   }
 
   private function paramMatch(array $match) :string {

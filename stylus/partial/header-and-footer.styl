@@ -1,0 +1,28 @@
+.header, .footer
+  responsivePadding()
+  background-color: --dark-blue
+  color: #fff
+
+
+.header
+  padding-top: --gutter-m
+  padding-bottom: @padding-top
+
+
+
+.header__container
+  display: grid
+  grid-template-columns: auto repeat(2, max-content)
+  align-items: center
+
+.logo
+  @extends $display-font
+  hover(--orange)
+  margin: 0
+  font-size: rem(48px)
+  white-space: nowrap
+
+
+.footer
+  padding-top: --gutter-l
+  padding-bottom: @padding-top

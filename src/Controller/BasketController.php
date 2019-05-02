@@ -1,5 +1,6 @@
 <?php
-namespace App\Controllers;
+declare(strict_types = 1);
+namespace App\Controller;
 
 class BasketController extends Controller {
 

@@ -2,29 +2,30 @@
 declare(strict_types = 1);
 namespace App\Database;
 
-use PDOStatement;
-
 class DatabaseSchema extends Database {
 
-  public function createDatabase(string $db_name) :PDOStatement {
+  public function createDatabase(string $db_name) :\PDOStatement {
     $stmt = "CREATE DATABASE IF NOT EXISTS `$db_name` COLLATE 'utf8mb4_general_ci'";
     return $this->query($stmt);
   }
 
-  public function createTable(string $table_name, array $columns = []) :PDOStatement {
-    $stmt = "CREATE TABLE IF NOT EXISTS `$table_name` (";
-    foreach ($columns as $column) {
-      $stmt .=  "  $column, ";
+  public function addTable(string $table_name, array $columns = []) :\PDOStatement {
+    $stmt = "CREATE TABLE IF NOT EXISTS `$table_name` ( ";
+    if (empty($columns)) {
+      $columns[] = $this->addColumn('id', 'INT', null, 'AUTO_INCREMENT PRIMARY KEY');
     }
-    if ($columns) { $stmt = substr($stmt, 0, strlen($stmt) - 2); }
-    $stmt .= ");";
+    foreach ($columns as $column) {
+      $stmt .=  "$column, ";
+    }
+    $stmt = substr($stmt, 0, strlen($stmt) - 2);
+    $stmt .= " )";
     return $this->query($stmt);
   }
 
   public function addForeignKey(
     string $key_name, string $table_name,
     string $on_delete = 'RESTRICT', string $on_update = 'RESTRICT'
-  ) :PDOStatement {
+  ) :\PDOStatement {
     $parent_column = "{$key_name}_id";
     return $this->query(
     "ALTER TABLE `$table_name`

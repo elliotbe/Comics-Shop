@@ -1,0 +1,37 @@
+.error__container
+  @extends $container-standard
+  text-align: center
+
+  +above(--medium)
+    display: grid
+    grid-gap: --gutter-m
+    grid-template-columns: auto 1fr
+    grid-template-areas: \
+      "gif title" \
+      "gif text"
+
+    .error__title, .error__text, .error__gif
+      margin: 0
+
+
+.error__title
+  @extends $display-font
+  grid-area: title
+  align-self: end
+  color: --red
+  text-decoration: underline
+
+
+
+.error__gif
+  grid-area: gif
+  max-height: 280px
+  max-width: 100%
+  border: 2px solid --dark-blue
+  margin: auto
+  display: block
+
+
+.error__text
+  grid-area: text
+  font-weight: bold

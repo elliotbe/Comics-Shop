@@ -3,7 +3,11 @@
     "description": "",
     "license": "MIT",
     "scripts": {
-        "start": "./start.sh"
+        "build-css": "stylus stylus/index.styl --out public/css/style.css --include-css --resolve-url --sourcemap --watch --resolve-url",
+        "start": [
+            "php extra/init-db.php",
+            "php -S localhost:4000 -t public public/index.php"
+        ]
     },
     "config": {
         "process-timeout": 0

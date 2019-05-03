@@ -17,8 +17,8 @@ class AppController extends Controller {
   }
 
   public function sandbox() {
-    $product = \App::getModel('Product')->getOne(492);
-    $this->render('sandbox', compact('product'), 'Sandbox', 'pre');
+    // $product = \App::getModel('Product')->getOne(492);
+    $this->render('sandbox',[], 'Sandbox', 'pre');
   }
 
   public function fourOhFour() {

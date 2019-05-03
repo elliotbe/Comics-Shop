@@ -13,7 +13,7 @@ class Model {
 
   public function __construct(Database $db) {
     $table = explode('\\', get_called_class());
-    $table = strtolower(str_replace('Model', '', end($table)));
+    $table = mb_strtolower(str_replace('Model', '', end($table)));
     if (is_null($this->table)) {
       $this->table = $table;
     }
@@ -21,12 +21,12 @@ class Model {
   }
 
   public function getAll() :array {
-    return $this->queryModel("SELECT * FROM $this->table ORDER BY id")->fetchAll();
+    return $this->queryModel("SELECT * FROM $this->table ORDER BY {$this->table}_id")->fetchAll();
   }
 
   public function getOne($id) :Entity {
     return $this->queryModel(
-      "SELECT * FROM $this->table WHERE id = ? LIMIT 1",
+      "SELECT * FROM $this->table WHERE {$this->table}_id = ? LIMIT 1",
       [$id]
     )->fetch();
   }

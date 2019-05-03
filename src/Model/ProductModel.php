@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace App\Model;
 
 use App\Database\Database;
+use App\Entity\Entity;
 
 
 class ProductModel extends Model {
@@ -38,6 +39,13 @@ class ProductModel extends Model {
     )->fetchAll();
   }
 
+  public function getOne($id) :Entity {
+    return $this->queryModel(
+      "SELECT * FROM $this->table WHERE product_id = ? LIMIT 1",
+      [$id]
+    )->fetch();
+  }
+
   public function insert(array $product_data) :\PDOStatement {
     try {
       $this->db->getPdo()->beginTransaction();
@@ -50,11 +58,11 @@ class ProductModel extends Model {
         "INSERT INTO product SET
           ref = :ref, title = :title,
           price_supplier = :price_supplier, price = :price,
-          author_id = (SELECT id FROM author WHERE content = :author),
-          category_id = (SELECT id FROM category WHERE content = :category),
-          hero_id = (SELECT id FROM hero WHERE content = :hero),
-          editor_id = (SELECT id FROM editor WHERE content = :editor),
-          supplier_id = (SELECT id FROM supplier WHERE content = :supplier),
+          author_id = (SELECT author_id FROM author WHERE content = :author),
+          category_id = (SELECT category_id FROM category WHERE content = :category),
+          hero_id = (SELECT hero_id FROM hero WHERE content = :hero),
+          editor_id = (SELECT editor_id FROM editor WHERE content = :editor),
+          supplier_id = (SELECT supplier_id FROM supplier WHERE content = :supplier),
           ref_editor = :ref_editor, ref_supplier = :ref_supplier, synopsis = :synopsis
         ", $product_data);
       $this->db->getPdo()->commit();
@@ -67,7 +75,7 @@ class ProductModel extends Model {
 
   private function insertOrIgnore(string $table, ?string $attribute) :void {
     if ($attribute) {
-      $id = $this->queryModel("SELECT id FROM $table WHERE content = ?", [$attribute])->fetchColumn();
+      $id = $this->queryModel("SELECT {$table}_id FROM $table WHERE content = ?", [$attribute])->fetchColumn();
       if ($id === false) {
         $this->queryModel("INSERT INTO $table SET content = ?", [$attribute]);
       }

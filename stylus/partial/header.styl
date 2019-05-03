@@ -1,0 +1,56 @@
+.header
+  responsivePadding()
+  background-color: --dark-blue
+  color: #fff
+
+
+.header__container
+  +above(--small)
+    display: grid
+    grid-template-columns: auto rem(260px)
+
+
+.logo-site
+  font-family: 'Oleo Script', cursive
+  padding-top: --gutter-s
+  padding-bottom: --gutter-l
+  margin: 0 auto
+  font-size: 0
+  white-space: nowrap
+  width: 190px
+  order: 1
+
+  +above(--small)
+    padding-bottom: --gutter-m
+    margin: 0
+
+
+
+.logo-site__svg
+  fill: #fff
+  width: auto
+
+  &__bubble
+    transition: fill --transition-option
+
+  &:hover > &__bubble
+    fill: --orange
+
+
+.header__wrap-link
+  display: flex
+  order: 2
+  cancelPadding()
+
+
+.header__link
+  hover(null, --orange)
+  font-weight: bold
+  flex-basis: 50%
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  padding: --gutter-xs
+
+  +above(--small)
+    padding: 0

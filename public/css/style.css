@@ -163,12 +163,6 @@ template {
   src: local('Oleo Script Bold '), local('Oleo Script-Bold'), url("../font/oleo-script/oleo-script-latin-700.woff2") format('woff2'), url("../font/oleo-script/oleo-script-latin-700.woff") format('woff');
 /* Modern Browsers */
 }
-.logo,
-.footer,
-.error__title {
-  font-family: 'Oleo Script', cursive;
-  line-height: 1.2;
-}
 .product__container,
 .error__container {
   background-color: #fff !important;
@@ -268,7 +262,6 @@ hgroup > * {
 .container {
   max-width: 1080px;
   margin: 0 auto;
-  background-color: rgba(255,136,136,0.3);
 }
 .main {
   padding-left: 16px;
@@ -326,35 +319,58 @@ hgroup > * {
     padding-right: 48px;
   }
 }
-.header {
-  padding-top: 24px;
-  padding-bottom: 24px;
+@media (min-width: 576px) {
+  .header__container {
+    display: grid;
+    grid-template-columns: auto 16.25rem;
+  }
 }
-.header__container {
-  display: grid;
-  grid-template-columns: auto repeat(2, max-content);
-  align-items: center;
-}
-.logo {
-  margin: 0;
+.logo-site {
+  font-family: 'Oleo Script', cursive;
+  padding-top: 16px;
+  padding-bottom: 32px;
+  margin: 0 auto;
   font-size: 0;
   white-space: nowrap;
+  width: 190px;
+  order: 1;
+}
+@media (min-width: 576px) {
+  .logo-site {
+    padding-bottom: 24px;
+    margin: 0;
+  }
 }
 .logo-site__svg {
   fill: #fff;
-  max-width: 192px;
+  width: auto;
+}
+.logo-site__svg__bubble {
   transition: fill 0.4s ease-in-out;
 }
-.logo-site__svg:hover {
+.logo-site__svg:hover > .logo-site__svg__bubble {
   fill: #ef3709;
+}
+.header__wrap-link {
+  display: flex;
+  order: 2;
+  margin-right: -16px;
+  margin-left: -16px;
+}
+@media (min-width: 576px) {
+  .header__wrap-link {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }
 .header__link {
   transition: background-color 0.4s ease-in-out;
-  height: 100%;
-  display: inline-flex;
-  align-items: center;
-  padding: 0 24px;
   font-weight: bold;
+  flex-basis: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
 }
 .header__link.active {
   transition: none;
@@ -363,11 +379,10 @@ hgroup > * {
 .header__link.active {
   background-color: #ef3709;
 }
-.footer {
-  padding-top: 32px;
-  padding-bottom: 32px;
-  font-size: 1.5rem;
-  text-align: center;
+@media (min-width: 576px) {
+  .header__link {
+    padding: 0;
+  }
 }
 .nav {
   padding-left: 16px;
@@ -401,7 +416,7 @@ hgroup > * {
 .nav__link {
   transition: background-color 0.4s ease-in-out;
   font-weight: bold;
-  padding: 16px;
+  padding: 16px 8px;
   white-space: nowrap;
   display: block;
 }
@@ -411,6 +426,11 @@ hgroup > * {
 .nav__link:hover,
 .nav__link.active {
   background-color: #ef3709;
+}
+@media (min-width: 1200px) {
+  .nav__link {
+    padding: 16px;
+  }
 }
 .error__container {
   text-align: center;
@@ -429,6 +449,8 @@ hgroup > * {
   }
 }
 .error__title {
+  font-family: 'Oleo Script', cursive;
+  line-height: 1;
   grid-area: title;
   align-self: end;
   color: #cc081b;
@@ -445,5 +467,23 @@ hgroup > * {
 .error__text {
   grid-area: text;
   font-weight: bold;
+}
+.footer {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  text-align: center;
+}
+.footer__catch-phrase {
+  font-family: 'Oleo Script', cursive;
+}
+.footer__mentions {
+  font-size: 0.875rem;
+}
+.footer__mentions a {
+  color: #c4c4ca;
+  text-decoration: underline;
+}
+.footer__mentions a:hover {
+  color: #fff;
 }
 /*# sourceMappingURL=style.css.map */

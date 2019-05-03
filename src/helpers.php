@@ -6,7 +6,7 @@ function slugify(string $string, string $delimiter = '-') :string {
   setlocale(LC_ALL, 'en_US.UTF-8');
   $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
   $clean = preg_replace('#[^a-zA-Z0-9/_|+ -]#', '', $clean);
-  $clean = strtolower($clean);
+  $clean = mb_strtolower($clean);
   $clean = preg_replace('#[/_|+ -]+#', $delimiter, $clean);
   $clean = trim($clean, $delimiter);
   setlocale(LC_ALL, $old_locale);
@@ -39,7 +39,7 @@ function setPageName(?string $page_name) :string {
 }
 
 function capitalize(string $string) :string {
-  return ucwords(strtolower($string));
+  return mb_convert_case($string, MB_CASE_TITLE);
 }
 
 function redirect(string $url) :void {
@@ -70,7 +70,7 @@ function snakeToCamel(string $name) :string {
 function camelToSnake(string $name) {
   $name = str_split($name);
   $name = array_map(function ($char) {
-    return ctype_upper($char) ? '_' . strtolower($char) : $char;
+    return ctype_upper($char) ? '_' . mb_strtolower($char) : $char;
   }, $name);
   $name = implode('', $name);
   return $name;

@@ -10,10 +10,12 @@
         <div><?= $product->ref ?></div>
         <div><?= $product->price ?>€</div>
         <div>
-          <a href="<?= generateUrl('Product#single', [
-            'id' => strtolower($product->id),
-            'slug' => $product->slug
-          ]) ?>"><?= $product->title ?></a>
+          <h4>
+            <a href="<?= generateUrl('Product#single', [
+              'id' => $product->product_id,
+              'slug' => $product->slug
+            ]) ?>"><?= $product->title ?></a>
+          </h4>
         </div>
         <div><?= $product->category ?></div>
         <div><?= $product->synopsis ?></div>

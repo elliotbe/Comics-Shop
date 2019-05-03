@@ -29,7 +29,7 @@ class DatabaseSchema extends Database {
     $parent_column = "{$key_name}_id";
     return $this->query(
     "ALTER TABLE `$table_name`
-      ADD FOREIGN KEY (`$parent_column`) REFERENCES `$key_name` (`id`)
+      ADD FOREIGN KEY (`$parent_column`) REFERENCES `$key_name` (`{$key_name}_id`)
       ON DELETE $on_delete ON UPDATE $on_update
   ");
   }

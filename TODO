@@ -2,15 +2,22 @@
 - adapt page title ✔
 - remake logo ✔
 - redirect if bad page ✔
-- img or default img algo
+- img or default img algo ✔
+
+- footer
+- commit
+- other nav
+
 - modelize db
-- icone
+- thumbnails style
+
 - session and flash message
-- search bar for title
 - pagination
+- modal
+- form class
+- search bar for title
+- icone
 
 - basket
-- modal
 - login/register (js too)
-- form class
 - backoffice

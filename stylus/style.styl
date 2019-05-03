@@ -1,0 +1,115 @@
+// Colors Variable
+--dark-blue = #081023
+--blue = #1E2537
+--orange = #EF3709
+--red = #CC081B
+--green = #4DAF0C
+
+// Media Queries
+--small = 576px
+--medium = 768px
+--large = 992px
+--extra-large = 1200px
+
+// Gutter size
+--gutter-xs = 8px
+--gutter-s = 16px
+--gutter-m = 24px
+--gutter-l = 32px
+--gutter-xl = 48px
+
+// Miscallenous
+--container-width = 1080px
+--transition-option = .4s ease-in-out
+
+// Vendor imports
+@require 'vendor/normalize.css'
+@require 'vendor/oleo-script.css'
+
+
+
+// Mixins
+above(width)
+  @media (min-width: width)
+    {block}
+
+
+below(width)
+  @media (max-width: width)
+    {block}
+
+
+responsivePadding(gutter-type = 'padding')
+  {gutter-type}-left: --gutter-s
+  {gutter-type}-right: --gutter-s
+
+  +above(--small)
+    {gutter-type}-left: --gutter-m
+    {gutter-type}-right: --gutter-m
+
+  +above(--medium)
+    {gutter-type}-left: --gutter-l
+    {gutter-type}-right: --gutter-l
+
+  +above(--large)
+    {gutter-type}-left: --gutter-xl
+    {gutter-type}-right: --gutter-xl
+
+
+cancelPadding()
+  margin-right: -(--gutter-s)
+  margin-left: @margin-right
+  +above(--small)
+    margin-right: 0
+    margin-left: @margin-right
+
+
+rem(int)
+  unit(int / 16, 'rem')
+
+
+hover(color-foreground = null, color-background = null)
+  &.active
+    transition: none
+
+  if color-foreground
+    &:hover, &.active
+      color: color-foreground
+
+  if color-background
+    &:hover, &.active
+      background-color: color-background
+
+  if color-foreground and color-background
+    transition: \
+      background-color --transition-option,
+      color --transition-option
+
+  else if color-foreground
+    transition: color --transition-option
+
+  else if color-background
+    transition: background-color --transition-option
+
+
+
+// placeholders
+$container-standard
+  background-color: #fff !important
+  box-shadow: 2px 2px 4px 0 hsla(--blue, .1);
+  padding: --gutter-m --gutter-xs
+
+  +above(--small)
+    padding: --gutter-m --gutter-s
+
+  +above(--medium)
+    padding: --gutter-m --gutter-m
+
+
+
+// Other imports
+@require 'partial/init'
+@require 'partial/header'
+@require 'partial/nav'
+@require 'partial/error'
+@require 'partial/footer'

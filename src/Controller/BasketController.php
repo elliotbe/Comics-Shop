@@ -31,10 +31,4 @@ class BasketController extends Controller {
     sendBack();
   }
 
-  public function deleteAll() {
-    \App::basket()->deleteBasket();
-    $this->session->setFlash('error', "Votre panier à été supprimé.");
-    sendBack();
-  }
-
 }

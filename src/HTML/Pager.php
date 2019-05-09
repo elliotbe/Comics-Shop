@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace App;
-
+namespace App\HTML;
 
 class Pager {
 
@@ -27,10 +26,10 @@ class Pager {
     }
 
     ob_start();
-    $this->getPageNumber(1);
+    echo $this->getPageNumber(1);
 
     if ($this->current_page > ($this->range + 1)) {
-      $this->getSeparator('«');
+      echo $this->getSeparator('«');
     }
 
     foreach (range(1, $this->number_of_page) as $page) {
@@ -38,31 +37,31 @@ class Pager {
       $is_in_delta = $delta < $this->range && $delta > -$this->range;
       $is_first_or_last = $page === 1 || $page === $this->number_of_page;
       if ($is_in_delta && !$is_first_or_last) {
-        $this->getPageNumber($page);
+        echo $this->getPageNumber($page);
       }
     };
 
     if ($this->current_page < ($this->number_of_page - $this->range)) {
-      $this->getSeparator('»');
+      echo $this->getSeparator('»');
     }
 
     // last page
-    $this->getPageNumber($this->number_of_page);
+    echo $this->getPageNumber($this->number_of_page);
 
     $inner_html = ob_get_clean();
     return "<div class=\"pager__wrap\">$inner_html</div>";
   }
 
-  private function getPageNumber(int $page_number) :void {
+  private function getPageNumber(int $page_number) :string {
     $is_active = $this->current_page === $page_number;
     $active_class_name = $is_active ? 'active' : null;
     $url = $is_active ? '#' : "?page=$page_number";
-    echo "<a class=\"pager__page-number $active_class_name\" href=\"$url\">$page_number</a>";
+    return "<a class=\"pager__page-number $active_class_name\" href=\"$url\">$page_number</a>";
 
   }
 
-  private function getSeparator(string $symbol) :void {
-    echo "<span class=\"pager__separator\">$symbol</span>";
+  private function getSeparator(string $symbol) :string {
+    return "<span class=\"pager__separator\">$symbol</span>";
   }
 
 }

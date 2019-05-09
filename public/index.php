@@ -43,17 +43,15 @@ $router->get('/modal/:id', 'Product#modal');
 $router->get('/:column/:id-:slug', 'Product#byColumn')->with('id', '[0-9]+');
 
 $router->get('/mon-panier', 'Basket#show');
-
 $router->get('/mon-panier/ajouter-:id', 'Basket#add');
 $router->get('/mon-panier/retirer-:id', 'Basket#remove');
 $router->get('/mon-panier/supprimer-:id', 'Basket#delete');
-$router->get('/mon-panier/tout-supprimer', 'Basket#deleteAll');
 
 $router->get('/sandbox', 'App#sandbox');
 $router->get('/initialize', 'App#initialize');
-
 $router->get('/:fourOhFour', 'App#fourOhFour')->with('fourOhFour', '.+');
 
+// TODO ykit
 if (App::config()->get('ENV') === 'development') {
   $router->run();
 } else {

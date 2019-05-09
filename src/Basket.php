@@ -27,7 +27,6 @@ class Basket {
       $this->user_id = $this->auth->getUserId();
       $this->basket_db = $this->getBasketFromDb();
     }
-
   }
 
   public function __destruct() {

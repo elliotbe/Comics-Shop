@@ -30,9 +30,11 @@
     display: grid
     grid-template-columns: auto 1fr
     grid-template-rows: auto min-content
+    grid-row-gap: --gap-s
 
   +above(--medium)
     grid-template-columns: auto 1fr auto
+    grid-row-gap: 0
 
 
 
@@ -45,10 +47,6 @@
     height: 150px
     position: relative
     margin-right: --gap-s
-    margin-bottom: --gap-s
-
-  +above(--medium)
-    margin-bottom: 0
 
 
 .basket-item__img
@@ -70,6 +68,7 @@
   font-size: rem(20px)
   margin-bottom: --gap-xs
   line-height: 1.2
+  text-transform: uppercase
 
 
 .basket-item__data

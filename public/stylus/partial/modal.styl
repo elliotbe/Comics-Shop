@@ -47,8 +47,8 @@
 
 
 .modal__grid
+  width: 100%
   +above(--small)
-    width: 100%
     display: grid
     grid-template-columns: min-content 1fr
     grid-template-rows: min-content auto min-content
@@ -74,10 +74,11 @@
   display: flex
   text-align: center
   line-height: 1.2
-  font-size: rem(28px)
+  text-transform: uppercase
+  font-size: rem(24px)
   +above(--small)
     text-align: left
-    font-size: rem(32px)
+    font-size: rem(28px)
 
 
 
@@ -95,7 +96,7 @@
   margin-top: --gap-s
   margin-bottom: @margin-top
   padding-top: --gap-xs
-  border-top: 1px solid --blue
+  border-top: 1px solid --light-gray
 
 
 .modal__btn-wrap

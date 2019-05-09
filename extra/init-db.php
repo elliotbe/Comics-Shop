@@ -88,7 +88,7 @@ foreach ($products_list as $product_line) {
     'hero', 'editor', 'supplier', 'ref_editor', 'ref_supplier', 'synopsis'
   ], $product_line);
 
-  foreach (['title', 'author', 'category', 'hero', 'editor', 'supplier'] as $field_name) {
+  foreach ($tables_name as $field_name) {
     if ($product_line[$field_name]) {
       $product_line[$field_name] = capitalize($product_line[$field_name]);
     }
@@ -118,17 +118,6 @@ $db->addTable('user', [
 ]);
 printLine("Create table 'user'");
 
-$db->addTable('basket', [
-  $db->addColumn('user_id', 'INT', '8', 'UNSIGNED'),
-  $db->addColumn('product_id', 'INT', '8', 'UNSIGNED'),
-  $db->addColumn('quantity', 'INT', '4', 'UNSIGNED NOT NULL'),
-]);
-printLine("Create table 'basket'");
-
-$db->query('ALTER TABLE basket ADD PRIMARY KEY product_basket_id (user_id, product_id)');
-$db->addForeignKey('product', 'basket');
-$db->addForeignKey('user', 'basket');
-
 $user_model = App::getModel('User')->upsert([
   'email' => 'elbelet@gmail.com',
   'password' => 'azerty',
@@ -149,3 +138,44 @@ $user_model = App::getModel('User')->upsert([
   'password' => 'azerty4',
   'privilege' => 'user'
 ]);
+
+$db->addTable('message', [
+  $db->addColumn('message_id', 'INT', '8', 'UNSIGNED AUTO_INCREMENT PRIMARY KEY'),
+  $db->addColumn('user_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('email', 'VARCHAR', '120'),
+  $db->addColumn('content', 'TEXT'),
+  $db->addColumn('date', 'DATETIME', null, 'DEFAULT CURRENT_TIMESTAMP')
+]);
+printLine("Create table 'message'");
+$db->addForeignKey('user', 'message');
+
+$db->addTable('order', [
+  $db->addColumn('order_id', 'INT', '8', 'UNSIGNED AUTO_INCREMENT PRIMARY KEY'),
+  $db->addColumn('user_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('order_number', 'INT', '8', 'UNSIGNED ZEROFILL'),
+  $db->addColumn('date', 'DATETIME', null, 'DEFAULT CURRENT_TIMESTAMP'),
+  $db->addColumn('total_amount', 'DECIMAL', '8,2', 'UNSIGNED'),
+  $db->addColumn('status', 'VARCHAR', '20', "NOT NULL DEFAULT 'ordered'")
+]);
+printLine("Create table 'order'");
+$db->addForeignKey('user', 'order');
+
+$db->addTable('basket', [
+  $db->addColumn('user_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('product_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('quantity', 'INT', '4', 'UNSIGNED NOT NULL'),
+]);
+printLine("Create table 'basket'");
+$db->query('ALTER TABLE basket ADD PRIMARY KEY product_basket_id (user_id, product_id)');
+$db->addForeignKey('product', 'basket');
+$db->addForeignKey('user', 'basket');
+
+$db->addTable('order_item', [
+  $db->addColumn('order_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('product_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('quantity', 'INT', '4', 'UNSIGNED NOT NULL'),
+]);
+printLine("Create table 'order_item'");
+$db->query('ALTER TABLE order_item ADD PRIMARY KEY product_order_id (order_id, product_id)');
+$db->addForeignKey('order', 'order_item');
+$db->addForeignKey('product', 'order_item');

@@ -8,4 +8,5 @@
   autoplay loop muted playsinline
   ></video>
   <p class="error__text"><?= $error_msg ?></p>
+  <a href="/" class="btn btn-primary">Retour à l'accueil</a>
 </div>

@@ -19,6 +19,16 @@ body
   color: --dark-blue
 
 
+.preload *
+  transition: none !important
+
+
+.hide
+  display: none !important
+
+img
+  display: block
+
 
 a
   color: inherit
@@ -35,10 +45,10 @@ h3
 
 h1, h2, h3, h4,
 h5, h6, p, hgroup
-  margin: --gutter-s 0
+  margin: --gap-s 0
 
   +above(--small)
-    margin: --gutter-m 0
+    margin: --gap-m 0
 
   &:first-child
     margin-top: 0
@@ -51,26 +61,22 @@ hgroup > *
   margin: 0
 
 
-.container
-  max-width: --container-width
-  margin: 0 auto
-  // background-color: hsla(#f88, .3)
+pre
+  white-space: pre-wrap;
+  z-index: 0 !important
 
-
-.product__container
-  @extends $container-standard
 
 .main
   responsivePadding()
-  padding-top: --gutter-xl
-  padding-bottom: @padding-top
+  padding-top: --gap-l
+  padding-bottom: --gap-l
   flex: 1 1 auto
   background:
-    radial-gradient(hsla(--orange, .2) 3px, transparent 4px),
-    radial-gradient(hsla(--blue, .2) 3px, transparent 4px),
+    radial-gradient(lighten(--orange, 80%) 3px, transparent 4px),
+    radial-gradient(lighten(--blue, 90%) 3px, transparent 4px),
     linear-gradient(#fff 4px, transparent 0),
-    linear-gradient(45deg, transparent 74px, transparent 75px, hsla(--blue, .2) 75px, hsla(--blue, .2) 76px, transparent 77px, transparent 109px),
-    linear-gradient(-45deg, transparent 75px, transparent 76px, hsla(--blue, .2) 76px, hsla(--blue, .2) 77px, transparent 78px, transparent 109px),
+    linear-gradient(45deg, transparent 74px, transparent 75px, lighten(--blue, 90%) 75px, lighten(--blue, 90%) 76px, transparent 77px, transparent 109px),
+    linear-gradient(-45deg, transparent 75px, transparent 76px, lighten(--blue, 90%) 76px, lighten(--blue, 90%) 77px, transparent 78px, transparent 109px),
   #fff;
   background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
   background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;

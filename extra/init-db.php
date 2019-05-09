@@ -4,14 +4,14 @@ require 'vendor/autoload.php';
 
 use App\Database\DatabaseSchema;
 
-
 $db_host = App::config()->get('DB_HOST');
 $db_name = App::config()->get('DB_NAME');
 $db_user = App::config()->get('DB_USER');
 $db_pass = App::config()->get('DB_PASS');
 $db = new DatabaseSchema($db_host, null, $db_user, $db_pass);
 
-// $db->query("DROP DATABASE `$db_name`");
+$db->query("DROP DATABASE `$db_name`");
+
 $db_exists = !(bool)$db->createDatabase($db_name)->rowCount();
 if ($db_exists) {
   printLine("The database $db_name already exist.");
@@ -23,16 +23,16 @@ printLine("The database '$db_name' doesn't exist and will be created");
 $db = new DatabaseSchema($db_host, $db_name, $db_user, $db_pass);
 
 $db->addTable('product', [
-  $db->addColumn('product_id', 'INT', null, 'NOT NULL AUTO_INCREMENT PRIMARY KEY'),
+  $db->addColumn('product_id', 'INT', '8', 'UNSIGNED AUTO_INCREMENT PRIMARY KEY'),
   $db->addColumn('ref', 'VARCHAR', '8', 'NOT NULL UNIQUE'),
-  $db->addColumn('title', 'VARCHAR', '255', 'NOT NULL UNIQUE'),
-  $db->addColumn('price_supplier', 'DOUBLE', '6,2', 'UNSIGNED'),
-  $db->addColumn('price', 'DOUBLE', '6,2', 'UNSIGNED'),
-  $db->addColumn('author_id', 'INT'),
-  $db->addColumn('category_id', 'INT'),
-  $db->addColumn('hero_id', 'INT'),
-  $db->addColumn('editor_id', 'INT'),
-  $db->addColumn('supplier_id', 'INT'),
+  $db->addColumn('title', 'VARCHAR', '120', 'NOT NULL UNIQUE'),
+  $db->addColumn('price_supplier', 'DECIMAL', '8,2', 'UNSIGNED'),
+  $db->addColumn('price', 'DECIMAL', '8,2', 'UNSIGNED'),
+  $db->addColumn('author_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('category_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('hero_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('editor_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('supplier_id', 'INT', '8', 'UNSIGNED'),
   $db->addColumn('ref_editor', 'VARCHAR', '24', 'UNIQUE'),
   $db->addColumn('ref_supplier', 'VARCHAR', '24', 'UNIQUE'),
   $db->addColumn('synopsis', 'TEXT'),
@@ -42,8 +42,8 @@ printLine("Create table 'product'");
 $tables_name = ['author', 'category', 'hero', 'editor', 'supplier'];
 foreach ($tables_name as $table_name) {
   $db->addTable($table_name, [
-    $db->addColumn("{$table_name}_id", 'INT', null, 'NOT NULL AUTO_INCREMENT PRIMARY KEY'),
-    $db->addColumn('content', 'VARCHAR', '255', 'NOT NULL UNIQUE'),
+    $db->addColumn("{$table_name}_id", 'INT', '8', 'UNSIGNED AUTO_INCREMENT PRIMARY KEY'),
+    $db->addColumn('content', 'VARCHAR', '120', 'NOT NULL'),
   ]);
   printLine("Create table '$table_name'");
 }
@@ -70,7 +70,7 @@ $db->query(
   LEFT JOIN editor   ON product.editor_id = editor.editor_id
   LEFT JOIN supplier ON product.supplier_id = supplier.supplier_id
 ");
-echo "Create view 'product_view'\n";
+printLine("Create view 'product_view'");
 
 $products_list = array_slice(file('extra/comics-shop-data.tsv'), 1);
 $product_model = App::getModel('product');
@@ -99,3 +99,53 @@ foreach ($products_list as $product_line) {
 
 $row_count = $db->query("SELECT COUNT(*) FROM product_view")->fetchColumn();
 printLine("Inserted $row_count new product into the database\n");
+
+$db->addTable('user', [
+  $db->addColumn('user_id', 'INT', '8', 'UNSIGNED AUTO_INCREMENT PRIMARY KEY'),
+  $db->addColumn('email', 'VARCHAR', '120', 'NOT NULL UNIQUE'),
+  $db->addColumn('password', 'VARCHAR', '255', 'NOT NULL UNIQUE'),
+  $db->addColumn('first_name', 'VARCHAR', '60'),
+  $db->addColumn('last_name', 'VARCHAR', '60'),
+  $db->addColumn('adress', 'VARCHAR', '255'),
+  $db->addColumn('zip_code', 'VARCHAR', '20'),
+  $db->addColumn('city', 'VARCHAR', '60'),
+  $db->addColumn('registred_at', 'DATETIME'),
+  $db->addColumn('registration_token', 'VARCHAR', '60'),
+  $db->addColumn('reseted_at', 'DATETIME'),
+  $db->addColumn('reset_token', 'VARCHAR', '60'),
+  $db->addColumn('remember_token', 'VARCHAR', '60'),
+  $db->addColumn('privilege', 'VARCHAR', '60', 'NOT NULL'),
+]);
+printLine("Create table 'user'");
+
+$db->addTable('basket', [
+  $db->addColumn('user_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('product_id', 'INT', '8', 'UNSIGNED'),
+  $db->addColumn('quantity', 'INT', '4', 'UNSIGNED NOT NULL'),
+]);
+printLine("Create table 'basket'");
+
+$db->query('ALTER TABLE basket ADD PRIMARY KEY product_basket_id (user_id, product_id)');
+$db->addForeignKey('product', 'basket');
+$db->addForeignKey('user', 'basket');
+
+$user_model = App::getModel('User')->upsert([
+  'email' => 'elbelet@gmail.com',
+  'password' => 'azerty',
+  'privilege' => 'admin'
+]);
+$user_model = App::getModel('User')->upsert([
+  'email' => 'sergentgarcia@yahoo.it',
+  'password' => 'azerty2',
+  'privilege' => 'user'
+]);
+$user_model = App::getModel('User')->upsert([
+  'email' => 'pierpoljak@libertysurf.fr',
+  'password' => 'azerty3',
+  'privilege' => 'user'
+]);
+$user_model = App::getModel('User')->upsert([
+  'email' => 'mrrobot@fucksociety.com',
+  'password' => 'azerty4',
+  'privilege' => 'user'
+]);

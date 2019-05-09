@@ -1,26 +1,33 @@
 // Colors Variable
 --dark-blue = #081023
---blue = #1E2537
---orange = #EF3709
+--blue = #132349
+--orange = #ff5800
 --red = #CC081B
 --green = #4DAF0C
+--light-gray = #c4c4ca
+--dark-gray = #8f8f8f
 
 // Media Queries
---small = 576px
+--extra-small = 448px
+--small = 448px
 --medium = 768px
 --large = 992px
 --extra-large = 1200px
 
 // Gutter size
---gutter-xs = 8px
---gutter-s = 16px
---gutter-m = 24px
---gutter-l = 32px
---gutter-xl = 48px
+--gap-xs = 8px
+--gap-s = 16px
+--gap-m = 24px
+--gap-l = 32px
+--gap-xl = 48px
 
 // Miscallenous
+--oleo-script = 'Oleo Script', cursive
 --container-width = 1080px
 --transition-option = .4s ease-in-out
+
+
+
 
 // Vendor imports
 @require 'vendor/normalize.css'
@@ -29,35 +36,35 @@
 
 
 // Mixins
-above(width)
-  @media (min-width: width)
+above(size, dimension = 'width')
+  @media (min-{dimension}: size)
     {block}
 
 
-below(width)
-  @media (max-width: width)
+below(size, dimension = 'width')
+  @media (max-{dimension}: size)
     {block}
 
 
 responsivePadding(gutter-type = 'padding')
-  {gutter-type}-left: --gutter-s
-  {gutter-type}-right: --gutter-s
+  {gutter-type}-left: --gap-xs
+  {gutter-type}-right: --gap-xs
 
   +above(--small)
-    {gutter-type}-left: --gutter-m
-    {gutter-type}-right: --gutter-m
+    {gutter-type}-left: --gap-s
+    {gutter-type}-right: --gap-s
 
   +above(--medium)
-    {gutter-type}-left: --gutter-l
-    {gutter-type}-right: --gutter-l
+    {gutter-type}-left: --gap-m
+    {gutter-type}-right: --gap-m
 
   +above(--large)
-    {gutter-type}-left: --gutter-xl
-    {gutter-type}-right: --gutter-xl
+    {gutter-type}-left: --gap-l
+    {gutter-type}-right: --gap-l
 
 
 cancelPadding()
-  margin-right: -(--gutter-s)
+  margin-right: -(--gap-xs)
   margin-left: @margin-right
   +above(--small)
     margin-right: 0
@@ -97,19 +104,26 @@ hover(color-foreground = null, color-background = null)
 $container-standard
   background-color: #fff !important
   box-shadow: 2px 2px 4px 0 hsla(--blue, .1);
-  padding: --gutter-m --gutter-xs
+  padding: --gap-s
 
   +above(--small)
-    padding: --gutter-m --gutter-s
+    padding: --gap-m
 
-  +above(--medium)
-    padding: --gutter-m --gutter-m
 
+.container
+  max-width: --container-width
+  margin: 0 auto
 
 
 // Other imports
-@require 'partial/init'
+@require 'partial/main'
 @require 'partial/header'
 @require 'partial/nav'
+@require 'partial/button'
+@require 'partial/flash-message'
+@require 'partial/pager'
+@require 'partial/thumbnail'
+@require 'partial/modal'
+@require 'partial/basket'
 @require 'partial/error'
 @require 'partial/footer'

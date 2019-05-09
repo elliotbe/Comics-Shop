@@ -2,42 +2,34 @@
 declare(strict_types = 1);
 namespace App\Controller;
 
+use App\Pager;
 
 class ProductController extends Controller {
 
-  private $categories;
-
   public function __construct() {
+    parent::__construct();
     $this->loadModel('Product');
-    $this->loadModel('Category');
-    $this->categories = $this->Category->getAll();
   }
 
   public function all() {
     $products = $this->Product->getAll();
-    $categories = $this->Category->getAll();
-    $this->render('home', compact('products', 'categories'));
+    $number_of_page = $this->Product->getNumberOfPage();
+    $pager = new Pager($number_of_page);
+    $this->render('home', compact('products', 'pager'));
   }
 
-  public function single(int $id) {
+  public function modal(int $id) {
     $product = $this->Product->getOne($id);
-    $categories = $this->Category->getAll();
-    $this->render('single', compact('product', 'categories'));
+    require($this->view_path . "/modal.php");
   }
 
   public function byColumn(string $column, int $id) {
-    $categories = $this->Category->getAll();
-    try {
-      $products = $this->Product->getAllByColumn($column, $id);
-      $page_title = capitalize($products[0]->$column);
-      $main_title = $column === 'category' ? null : $page_title;
-      $this->render('home', compact('products', 'categories', 'main_title'), $page_title);
-    } catch (\Exception $e) {
-      // $error_msg =  "Il n'y a rien ici, obsolument rien.";
-      $error_msg = $e->getMessage();
-      header('HTTP/1.1 500 Internal Server Error');
-      $this->render('error', compact('categories', 'error_msg'), 'Erreur');
-    }
+    $products = $this->Product->getAllByColumn($column, $id);
+    $number_of_page = $this->Product->getNumberOfPage($column, $id);
+    $pager = new Pager($number_of_page);
+    $page_title = capitalize($products[0]->$column);
+    $main_title = $column === 'category' ? null : $page_title;
+    $this->render('home', compact('products', 'pager', 'main_title'), $page_title);
   }
 
 }

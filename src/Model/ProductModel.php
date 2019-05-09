@@ -8,23 +8,22 @@ use App\Entity\Entity;
 
 class ProductModel extends Model {
 
-  private $limit;
+  private $products_per_page = 20;
   private $offset;
   protected $table = 'product_view';
 
   public function __construct(Database $db) {
     parent::__construct($db);
-    $this->limit = \App::config()->get('PRODUCTS_PER_PAGE');
-    $page_number = $_GET['page'] ?? 1;
+    $page_number = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     if ($page_number < 1) {
       $page_number = 1;
     }
-    $this->offset = $this->limit * ((int)$page_number - 1);
+    $this->offset = $this->products_per_page * ($page_number - 1);
   }
 
   public function getAll() :array {
     return $this->queryModel(
-      "SELECT * FROM $this->table LIMIT $this->offset, $this->limit"
+      "SELECT * FROM $this->table LIMIT $this->offset, $this->products_per_page"
     )->fetchAll();
   }
 
@@ -33,10 +32,25 @@ class ProductModel extends Model {
     return $this->queryModel(
       "SELECT * FROM $this->table
         WHERE $column = :id
-        LIMIT $this->offset, $this->limit
+        LIMIT $this->offset, $this->products_per_page
       ",
       ['id' => $id]
     )->fetchAll();
+  }
+
+  public function getNumberOfPage(string $column = null, int $id = null) :int {
+    if ($column) {
+      $column = escapeSQL("{$column}_id");
+      $item_count = $this->queryModel(
+        "SELECT COUNT(product_id) FROM $this->table WHERE $column = :id",
+        ['id' => $id]
+      )->fetchColumn();
+    } else {
+      $item_count = $this->queryModel(
+        "SELECT COUNT(product_id) FROM $this->table"
+      )->fetchColumn();
+    }
+    return (int)ceil($this->number_of_page = $item_count / $this->products_per_page);
   }
 
   public function getOne($id) :Entity {
@@ -82,8 +96,6 @@ class ProductModel extends Model {
     }
   }
 
-  private function getPage(?int $page_number) {
 
-  }
 
 }

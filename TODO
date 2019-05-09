@@ -4,20 +4,24 @@
 - redirect if bad page ✔
 - img or default img algo ✔
 
-- footer
-- commit
-- other nav
+- footer ✔
+- commit ✔
+- other nav ✔
 
-- modelize db
-- thumbnails style
+- modelize db ✔
+- thumbnails style ✔
 
-- session and flash message
-- pagination
-- modal
+- modal ✔
+- session and flash message ✔
+- pagination ✔
+- basket
 - form class
 - search bar for title
-- icone
+- icons
 
-- basket
+- remodelize db
 - login/register (js too)
 - backoffice
+
+- favicon
+- remove extends in modal styl

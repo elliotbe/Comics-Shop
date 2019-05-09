@@ -1,0 +1,39 @@
+.pager__wrap
+  margin: 0 auto
+  margin-bottom: --gap-s
+  display: flex
+  justify-content: center
+  overflow: hidden
+
+  &:last-child
+    margin-bottom: 0
+    margin-top: --gap-s
+
+
+.pager__page-number
+  border: 2px solid --dark-blue
+  background-color: #fff
+  padding: 4px
+  margin: 0 4px
+  min-width: 28px
+  text-align: center
+  font-weight: 600
+  border-radius: 425px 255px 25px 25px/25px 25px 5px 25px
+  line-height: 1.2
+
+  &.active
+    font-weight: bold
+    background-color: --dark-blue
+    color: #fff
+
+
+.pager__separator
+  border: 2px solid --dark-blue
+  background-color: #fff
+  padding: 4px
+  margin: 0 2px
+  min-width: 26px
+  text-align: center
+  font-size: rem(20px)
+  line-height: 0.75
+  font-weight: 600

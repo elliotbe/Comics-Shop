@@ -19,7 +19,12 @@ function generateUrl(string $name, array $params = []) :string {
 }
 
 function printLine(string $arg) :void {
-  echo "$arg\n";
+  if (php_sapi_name() === 'cli') {
+    $eol = "\n";
+  } else {
+    $eol = '<br>';
+  }
+  echo "{$arg}{$eol}";
 }
 
 function preDump(...$args) :void {
@@ -39,11 +44,43 @@ function setPageName(?string $page_name) :string {
 }
 
 function capitalize(string $string) :string {
-  return mb_convert_case($string, MB_CASE_TITLE);
+  $string = mb_strtolower($string);
+  $string = preg_replace_callback("#([^ .'])+#", function ($match) use ($string) {
+    $words_ignore_list = [
+      'les', 'l', 'le', 'la', 'a', 'à', 'au', 'et', 'd',
+      'de', 'chez', 'que', 'du', 'un', 'une', 'des', 'the'
+    ];
+    if (in_array($match[0], $words_ignore_list) && mb_strpos($string, $match[0]) !== 0) {
+      return $match[0];
+    }
+    return mb_convert_case($match[0], MB_CASE_TITLE);
+  }, $string);
+  return $string;
+}
+
+
+function mb_explode(string $string) :array {
+  $array = array_map(function ($char) use ($string) {
+    return mb_substr($string, $char, 1);
+  }, range(0, mb_strlen($string) - 1));
+  return $array;
+}
+
+function lastPageUrl() :string {
+  $current_page = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  $referer = $_SERVER['HTTP_REFERER'] ?? null;
+  if ($referer !== null && $referer !== $current_page ) {
+    return $referer;
+  }
+  return '/';
 }
 
 function redirect(string $url) :void {
   header("Location: $url");
+}
+
+function sendBack() :void {
+  redirect(lastPageUrl());
 }
 
 function getRandomGif() :string {
@@ -74,4 +111,13 @@ function camelToSnake(string $name) {
   }, $name);
   $name = implode('', $name);
   return $name;
+}
+
+function getBasketCount() :int {
+    return sizeof(App::session()->get('basket')) ?? 0;
+}
+
+function parseFloat(float $number) :string {
+  // return str_replace('.', ',', $number);
+  return str_replace('.', ',', sprintf('%0.2f', $number));
 }

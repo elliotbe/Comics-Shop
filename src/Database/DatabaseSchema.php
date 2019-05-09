@@ -12,12 +12,9 @@ class DatabaseSchema extends Database {
   public function addTable(string $table_name, array $columns = []) :\PDOStatement {
     $stmt = "CREATE TABLE IF NOT EXISTS `$table_name` ( ";
     if (empty($columns)) {
-      $columns[] = $this->addColumn('id', 'INT', null, 'AUTO_INCREMENT PRIMARY KEY');
+      $columns[] = $this->addColumn("{$table_name}_id", 'INT', '8', 'AUTO_INCREMENT PRIMARY KEY');
     }
-    foreach ($columns as $column) {
-      $stmt .=  "$column, ";
-    }
-    $stmt = substr($stmt, 0, strlen($stmt) - 2);
+    $stmt .= implode(', ', $columns);
     $stmt .= " )";
     return $this->query($stmt);
   }

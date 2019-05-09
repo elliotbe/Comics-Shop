@@ -8,6 +8,14 @@ class CategoryEntity extends Entity {
     return slugify($this->content);
   }
 
+  public function getUrl() :string {
+    return generateUrl('Product#byColumn', [
+      'column' => 'category',
+      'id' => $this->category_id,
+      'slug' => slugify($this->content)
+    ]);
+  }
+
   /** @var int $category_id */
   public $category_id;
 

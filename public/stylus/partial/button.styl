@@ -1,0 +1,33 @@
+.btn
+  border: none
+  color: #fff
+  padding: --gap-xs 12px
+  font-family: --oleo-script
+  font-size: rem(18px)
+  display: inline-block
+  text-align: center
+  margin: 0
+  line-height: 1
+  cursor: pointer
+
+  &:first-child
+  &:not(:last-child)
+    margin-right: 12px
+
+
+.btn[disabled]
+  background-color: #888
+  cursor: default
+  pointer-events: none
+
+
+.btn-primary
+  background-color: --orange
+  &:active
+    background-color: darken(@background-color, 15%)
+
+
+.btn-secondary
+  background-color: --blue
+  &:active
+    background-color: lighten(@background-color, 15%)

@@ -1,19 +1,19 @@
 .header
   responsivePadding()
-  background-color: --dark-blue
+  background-color: --blue
   color: #fff
 
 
 .header__container
   +above(--small)
     display: grid
-    grid-template-columns: auto rem(260px)
+    grid-template-columns: auto rem(236px)
 
 
 .logo-site
-  font-family: 'Oleo Script', cursive
-  padding-top: --gutter-s
-  padding-bottom: --gutter-l
+  font-family: --oleo-script
+  padding-top: --gap-l
+  padding-bottom: --gap-xl
   margin: 0 auto
   font-size: 0
   white-space: nowrap
@@ -21,20 +21,19 @@
   order: 1
 
   +above(--small)
-    padding-bottom: --gutter-m
+    padding-top: --gap-m
+    padding-bottom: @padding-top
     margin: 0
 
 
 
 .logo-site__svg
   fill: #fff
-  width: auto
 
-  &__bubble
-    transition: fill --transition-option
+.logo-site__svg__bubble
+  fill: --orange
 
-  &:hover > &__bubble
-    fill: --orange
+
 
 
 .header__wrap-link
@@ -44,13 +43,18 @@
 
 
 .header__link
+  // border-bottom: 2px solid --dark-blue
   hover(null, --orange)
   font-weight: bold
   flex-basis: 50%
   display: inline-flex
   justify-content: center
   align-items: center
-  padding: --gutter-xs
+  padding: --gap-xs
+  text-align: center
+
+  &:not(:last-child)
+    border-right: @border-bottom
 
   +above(--small)
     padding: 0

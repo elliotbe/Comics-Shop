@@ -1,0 +1,88 @@
+.page-title
+  font-family: --oleo-script
+  text-align: center
+  font-size: rem(48px)
+  margin: 0 --gap-s
+
+
+.thumbnail__grid
+  display: grid
+  grid-gap: --gap-xs
+  grid-auto-rows: 1fr
+  justify-items: center
+  +above(--extra-small)
+    grid-gap: 12px
+    grid-template-columns: repeat(2, 1fr)
+  +above(--medium)
+    grid-gap: --gap-s
+    grid-template-columns: repeat(3, 1fr)
+  +above(--large)
+    grid-template-columns: repeat(4, 1fr)
+
+
+.thumbnail
+  display: block
+  border: 1px solid --light-gray
+  width: 100%
+  background-color: #fff
+  padding: --gap-s
+  display: grid
+  grid-template-rows: auto 1fr auto
+  align-items: center
+  justify-items: center
+  transition: box-shadow --transition-option
+  @media (hover: none)
+    box-shadow: 2px 2px 2px 0 hsla(--blue, .15);
+
+
+.thumbnail:hover
+    box-shadow: 2px 2px 2px 0 hsla(--blue, .15);
+
+
+.thumbnail__img-wrap
+  width: 150px
+  height: 200px
+  position: relative
+
+
+.thumbnail__img
+  width: 100%
+  height: 100%
+  object-fit: cover
+
+
+.thumbnail__price
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  background-color: hsla(--blue, .9)
+  font-weight: bold
+  color: #fff
+  padding: --gap-xs
+  text-align: center
+  opacity: 0
+  transition: opacity --transition-option
+  @media (hover: none)
+    opacity: 100
+
+.thumbnail:hover .thumbnail__price
+  opacity: 100
+
+
+.thumbnail__title
+  font-size: rem(22px)
+  margin: 0
+  padding: --gap-xs 0
+  line-height: 1.2
+  text-align: center
+
+.thumbnail__title.small
+  +above(--small)
+    font-size: rem(18px)
+
+
+.thumbnail__btn-wrap
+  display: flex
+  width: 100%
+  justify-content: center

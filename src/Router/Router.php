@@ -51,7 +51,7 @@ class Router {
 
   public function url (string $name, array $params = []) :string {
     if (isset($this->named_routes[$name]) === false) {
-      throw new RouterException('No route matching this name', 3);
+      throw new RouterException("No route matching this name '$name'", 3);
     }
 
     return $this->named_routes[$name]->getUrl($params);

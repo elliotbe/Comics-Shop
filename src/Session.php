@@ -5,15 +5,22 @@ namespace App;
 class Session {
 
   public function __construct() {
+    session_start([
+      'name' => 'comics-shop_ssid',
+      'save_path' => ROOT . 'extra/session_storage/'
+      ]);
+    setcookie(session_name(), session_id(), time() + 1200, '/');
 
+    $this->get('flash') !== null ?: $this->set('flash', []);
+    $this->get('basket') !== null ?: $this->set('basket', []);
   }
 
-  public function set(string $key, string $value) :void {
+  public function set(string $key, $value) {
     $_SESSION[$key] = $value;
   }
 
   public function get(string $key) {
-    return $_SESSION[$key];
+    return $_SESSION[$key] ?? null;
   }
 
   public function setFlash(string $type, string $message) :void {
@@ -21,11 +28,11 @@ class Session {
   }
 
   public function getFlash() :array {
-    return $_SESSION['flash'];
+    return $this->get('flash');
   }
 
   public function removeFlash() :void {
-    unset($_SESSION['flash']);
+    $this->set('flash', []);
   }
 
 }

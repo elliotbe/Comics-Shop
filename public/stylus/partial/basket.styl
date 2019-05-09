@@ -1,0 +1,157 @@
+.basket__container
+  @extends $container-standard
+  min-height: 50vh
+
+
+.basket__empty-wrap
+  min-height: 100%
+  margin: auto
+  text-align: center
+
+.basket__title
+  font-family: --oleo-script
+  line-height: 1
+  margin-top: --gap-l !important
+  margin-bottom: @margin-top
+
+
+.basket__btn-back--single
+  font-size: rem(26px)
+
+.basket-item
+  border-bottom: 1px solid --light-gray
+  padding-bottom: --gap-s
+  margin-bottom: @padding-bottom
+
+  .strong
+    font-weight: 600
+
+  +above(--small)
+    display: grid
+    grid-template-columns: auto 1fr
+    grid-template-rows: auto min-content
+
+  +above(--medium)
+    grid-template-columns: auto 1fr auto
+
+
+
+.basket-item__img-wrap
+  display: none
+
+  +above(--small)
+    display: block
+    width: 112.5px
+    height: 150px
+    position: relative
+    margin-right: --gap-s
+    margin-bottom: --gap-s
+
+  +above(--medium)
+    margin-bottom: 0
+
+
+.basket-item__img
+  @extends .thumbnail__img
+
+
+.basket-item__price
+  @extends .modal__price
+
+
+.basket-item__col-2
+  text-align: center
+
+  +above(--small)
+    text-align: left
+
+
+.basket-item__title
+  font-size: rem(20px)
+  margin-bottom: --gap-xs
+  line-height: 1.2
+
+
+.basket-item__data
+  @extends .modal__data
+
+
+.basket-item__col-3
+  text-align: center
+
+  +above(--small)
+    text-align: left
+    grid-column: span 2
+    display: grid
+    grid-template-columns: 180px 1fr
+    grid-template-rows: 1fr min-content
+    grid-auto-flow: dense
+
+  +above(--medium)
+    grid-column: span 1
+    grid-template-columns: auto
+    grid-template-rows: 1fr auto
+    justify-items: end
+
+
+
+.basket-item__btn-wrap
+  display: flex
+  justify-content: center
+  align-items: center
+  margin: --gap-xs auto
+
+  .btn
+    margin: 0
+
+  +above(--small)
+    margin: 0
+    grid-row: span 2
+    grid-column: 2
+
+  +above(--medium)
+    transform: none
+    grid-row: span 1
+    grid-column: 1
+
+
+
+.basket-item__btn-more,
+.basket-item__btn-less
+  @extends .btn-secondary
+  font-size: rem(12px)
+  padding: --gap-xs 10px
+  font-family: 'Segoe UI', sans-serif
+  font-weight: 900
+
+
+.basket-item__btn-less
+  margin-right: -14px !important
+  z-index: 10
+
+
+.basket-item__btn-more
+  margin-left: -14px !important
+  z-index: 10
+
+
+.basket-item__btn-delete
+  @extends .btn-primary
+  // font-size: rem(24px)
+  padding: 12px 22px
+
+
+.basket__footer
+  display: grid
+  grid-template-columns: repeat(2, auto)
+  justify-items: end
+  text-align: right
+
+  .btn-primary
+    justify-self: start
+
+
+.basket__total-price
+  font-size: rem(24px);
+  margin-bottom: --gap-xs
+  grid-column: 2

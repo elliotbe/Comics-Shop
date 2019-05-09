@@ -1,0 +1,158 @@
+.modal__wrap
+  width: 100%
+  min-height: 100vh
+  position: fixed
+  display: flex
+  top: 0; bottom: 0
+  left: 0; right: 0
+  padding: --gap-s
+  z-index: 10
+  pointer-events: none
+
+
+.modal__cover
+  background-color: hsla(--dark-blue, .8)
+  position: fixed
+  top: 0; bottom: 0
+  left: 0; right: 0
+  z-index: 10
+  pointer-events: auto
+  opacity: 100
+  transition: opacity .6s ease
+
+.modal__cover-hide
+  opacity: 0
+  pointer-events: none
+
+
+.modal
+  @extends $container-standard
+  padding-bottom: 0
+  display: flex
+  z-index: 20
+  margin: auto
+  overflow: auto
+  max-height: 100%
+  width: 800px
+  pointer-events: auto
+  transform: translateY(0)
+  transition: transform .6s ease
+
+  +above(--small, 'height')
+    min-height: 400px
+
+
+.modal-hide
+  transform: translateY(-100vh)
+
+
+.modal__grid
+  +above(--small)
+    width: 100%
+    display: grid
+    grid-template-columns: min-content 1fr
+    grid-template-rows: min-content auto min-content
+    grid-column-gap: --gap-m
+
+
+.modal__img-wrap
+  @extends .thumbnail__img-wrap
+  margin: auto
+  margin-bottom: --gap-s
+
+
+.modal__img
+  @extends .thumbnail__img
+
+
+.modal__price
+  @extends .thumbnail__price
+  opacity: 100
+
+
+.modal__title
+  display: flex
+  text-align: center
+  line-height: 1.2
+  font-size: rem(28px)
+  +above(--small)
+    text-align: left
+    font-size: rem(32px)
+
+
+
+.modal__data
+  text-transform: capitalize
+
+
+.modal__link
+  font-weight: 600
+  text-decoration: underline
+
+
+.modal__synopsis
+  grid-column: span 2
+  margin-top: --gap-s
+  margin-bottom: @margin-top
+  padding-top: --gap-xs
+  border-top: 1px solid --blue
+
+
+.modal__btn-wrap
+  display: flex
+  grid-column: 2
+  padding-bottom: --gap-s
+  justify-content: center
+  +above(--small)
+    padding-bottom: --gap-m
+    justify-self: end
+
+
+
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * * SPINNER
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.modal__container__spinner
+  margin: auto
+  padding: --gap-xl
+
+.modal__spinner
+  margin: auto
+  width: 70px
+  height: 50px
+  text-align: center
+
+
+.modal__spinner > div
+  background-color: --orange
+  height: 100%
+  width: 8px
+  display: inline-block
+  animation: sk-stretchdelay 1.2s infinite ease-in-out
+
+
+.modal__spinner .rect2
+  animation-delay: -1.1s
+
+
+.modal__spinner .rect3
+  animation-delay: -1.0s
+
+
+.modal__spinner .rect4
+  animation-delay: -0.9s
+
+
+.modal__spinner .rect5
+  animation-delay: -0.8s
+
+
+@keyframes sk-stretchdelay
+  0%, 40%, 100%
+    transform: scaleY(0.4)
+  20%
+    transform: scaleY(1.0);

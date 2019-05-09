@@ -32,8 +32,8 @@ class Config {
     }
   }
 
-  public function get(string $key) {
-    return $this->config[$key];
+  public function get(string $key) :?string {
+    return $this->config[$key] ?? null ;
   }
 
 }

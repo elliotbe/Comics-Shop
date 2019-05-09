@@ -31,14 +31,18 @@ class Database {
   }
 
   public function query($statement, $params = null, $class_name = null) :\PDOStatement {
-    $req = $this->pdo->prepare($statement);
-    if ($class_name) {
-      $req->setFetchMode(\PDO::FETCH_CLASS, $class_name);
-    } else {
-      $req->setFetchMode(\PDO::FETCH_OBJ);
+    try {
+      $req = $this->pdo->prepare($statement);
+      if ($class_name) {
+        $req->setFetchMode(\PDO::FETCH_CLASS, $class_name);
+      } else {
+        $req->setFetchMode(\PDO::FETCH_OBJ);
+      }
+      $req->execute($params);
+      return $req;
+    } catch (\Throwable $th) {
+      throw $th;
     }
-    $req->execute($params);
-    return $req;
   }
 
   public function lastId() :string {

@@ -31,19 +31,20 @@ class Model {
     )->fetch();
   }
 
-  public function upsert(array $fields, string $id = null) :\PDOStatement {
-    $sql_parts = [];
-    $attributes = [];
-    foreach($fields as $k => $v) {
-      $sql_parts[] = "$k = :$k";
-      $attributes[$k] = $v;
-    }
-    $sql = implode(', ', $sql_parts);
+  public function upsert(array $params, int $id = null) :\PDOStatement {
+    $stmt_part = $this->getPlaceholders($params);
     if ($id) {
-      $attributes['id'] = $id;
-      return $this->db->query("UPDATE $this->table SET $sql WHERE id = :id", $attributes);
+      $params['id'] = $id;
+      return $this->db->query("UPDATE $this->table SET $stmt_part WHERE {$this->table}_id = :id", $params);
     }
-    return $this->db->query("INSERT INTO $this->table SET $sql", $attributes);
+    return $this->db->query("INSERT INTO $this->table SET $stmt_part", $params);
+  }
+
+  public function delete(int $id, string $key_name = null) {
+  if (is_null($key_name)) {
+    $key_name = $this->table;
+  }
+  return $this->db->query("DELETE FROM $this->table WHERE {$key_name}_id = :id", ['id' => $id]);
   }
 
   protected function queryModel($statement, $params = null) :\PDOStatement {
@@ -52,8 +53,13 @@ class Model {
     return $this->db->query($statement, $params, 'App\\Entity\\' . $entity);
   }
 
-  protected function escapeSql(string $string) :string {
-    return $string;
+  protected function getPlaceholders(array $params) :string {
+    $stmt_part = array_reduce(array_keys($params), function ($init, $field) use ($params) {
+      $init[] = "$field = :$field";
+      return $init;
+    }, []);
+    return implode(', ', $stmt_part);
   }
+
 
 }

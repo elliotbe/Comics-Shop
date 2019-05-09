@@ -3,9 +3,9 @@ vendor/
 
 # yarn foler/files
 node_modules
-yarn.lock
-pnp.js
+.pnp.js
 
 # other files
 .env.local
 nohup.out
+extra/session_storage

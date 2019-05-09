@@ -4,6 +4,13 @@ namespace App\Entity;
 
 class ProductEntity extends Entity {
 
+  private $l10n  = [
+    'author' => 'auteur',
+    'category' => 'catégorie',
+    'hero' => 'héro',
+    'editor' => 'éditeur',
+  ];
+
   public function __construct() {
     $this->synopsis ?? $this->synopsis = 'Pas de résumé disponible.';
   }
@@ -21,6 +28,49 @@ class ProductEntity extends Entity {
     }, '/img/product/default.jpg');
     return $img_src;
   }
+
+  public function getTitleClassName() :string {
+    if (mb_strlen($this->title) <= 22) {
+      return 'thumbnail__title';
+    }
+    return 'thumbnail__title small';
+  }
+
+  public function getOrderIsDisabled() :?string {
+    if (is_null($this->price)) {
+      return 'disabled';
+    }
+    return null;
+  }
+
+  public function getParsedPrice() :string {
+    if (is_null($this->price)) {
+      return 'Pas en stock';
+    }
+    $price = parseFloat((float)$this->price);
+    return "{$price}€";
+  }
+
+  public function getModalUrl() :string {
+    return generateUrl('Product#modal', [ 'id' => $this->product_id ]);
+  }
+
+  public function fieldNotNull(string $field, string $delimiter = 'div', bool $is_link = true) {
+    if (isset($this->$field)) {
+      $field_id = $field . '_id';
+      $label = $this->l10n[$field];
+      if ($is_link) {
+        $link_url = generateUrl('Product#byColumn', [
+          'column' => $field,
+          'id' => $this->$field_id,
+          'slug' => slugify($this->$field)
+        ]);
+        return "<$delimiter class=\"modal__data\">$label : <a class=\"modal__link\" href=\"$link_url\">{$this->$field}</a></$delimiter>";
+      }
+      return "<$delimiter class=\"basket-item__data\">$label : <strong class=\"strong\">{$this->$field}</strong></$delimiter>";
+    }
+  }
+
 
 
   /** @var int $product_id */
@@ -76,5 +126,8 @@ class ProductEntity extends Entity {
 
   /** @var string|null $synopsis */
   public $synopsis;
+
+  /** @var int|null $quantity */ // Added by the basket controller;
+  public $quantity;
 
 }

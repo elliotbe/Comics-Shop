@@ -5,19 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title><?= $page_name ?></title>
-  <style>
-    body {
-      margin: 16px;
-    }
-
-    pre {
-      white-space: pre-wrap;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <script defer src="/js/main.js"></script>
 </head>
-<body>
-  <pre>
-<?= $page_content ?>
-  </pre>
+<body style="margin: 16px">
+  <?= $page_content ?>
 </body>
 </html>

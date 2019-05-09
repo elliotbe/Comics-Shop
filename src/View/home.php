@@ -1,26 +1,40 @@
-<div class="container product__container">
+<?php require('partial/flash-message.php') ?>
+
+<div class="container thumbnail__container">
+
   <?php if (isset($main_title)): ?>
-    <h2><?= $main_title ?></h2>
+    <h2 class="page-title"><?= $main_title ?></h2>
   <?php endif ?>
 
-  <div class="product__grid">
+  <?= $pager->generate() ?>
+
+  <div class="modal__wrap">
+    <div class="modal modal-hide"></div>
+    <div class="modal__cover modal__cover-hide" onclick="closeModal()"></div>
+  </div>
+
+  <div class="thumbnail__grid">
+
     <?php foreach ($products as $product): ?>
-      <div class="product__thumbnail">
-        <img src="<?= $product->img_src ?>" alt="thumbnail image">
-        <div><?= $product->ref ?></div>
-        <div><?= $product->price ?>€</div>
-        <div>
-          <h4>
-            <a href="<?= generateUrl('Product#single', [
-              'id' => $product->product_id,
-              'slug' => $product->slug
-            ]) ?>"><?= $product->title ?></a>
-          </h4>
+      <div class="thumbnail">
+        <div class="thumbnail__img-wrap">
+          <img class="thumbnail__img" src="<?= $product->img_src ?>" alt="thumbnail image">
+          <div class="thumbnail__price"><?= $product->parsed_price ?></div>
         </div>
-        <div><?= $product->category ?></div>
-        <div><?= $product->synopsis ?></div>
-        <div><?= dump($product) ?></div>
+        <h3 class="<?= $product->title_class_name ?>"><?= $product->title ?></h3>
+        <div class="thumbnail__btn-wrap">
+          <button class="btn btn-primary" onclick="openModal('<?= $product->modal_url ?>')">Détails</button>
+          <a
+            href="/mon-panier/ajouter-<?= $product->product_id ?>"
+            class="btn btn-secondary"
+            <?= $product->order_is_disabled ?>
+          >Acheter</a>
+        </div>
       </div>
     <?php endforeach ?>
+
   </div>
+
+  <?= $pager->generate() ?>
+
 </div>

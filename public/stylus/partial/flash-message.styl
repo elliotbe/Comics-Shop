@@ -1,0 +1,38 @@
+.flash-msg
+  padding: --gap-s
+  padding-right: --gap-l
+  color: #fff
+  margin: 0 auto
+  border-radius: 255px 25px 225px 25px/25px 225px 25px 255px
+  border: 2px solid transparent
+  position: relative
+  font-weight: 600
+  margin-bottom: --gap-s
+  font-size: rem(14px)
+
+
+.flash-msg__success
+  background-color: lighten(--green, 80%)
+  color: --green
+  border-color: --green
+
+
+.flash-msg__error
+  background-color: lighten(--red, 80%)
+  color: --red
+  border-color: --red
+
+
+.flash-msg__close-btn
+  position: absolute
+  top: --gap-xs; right: --gap-xs
+  background-color: transparent
+  border: none
+  color: inherit
+
+
+.flash-msg__close-btn::before
+  content: 'x'
+  font-size: 24px
+  line-height: 1
+  font-family: 'Comic Sans MS', cursive

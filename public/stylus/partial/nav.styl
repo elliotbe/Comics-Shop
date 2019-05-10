@@ -13,9 +13,12 @@
 .nav__link
   hover(null, --orange)
   font-weight: bold
-  padding: 12px
   white-space: nowrap
   display: block
+  padding: 8px 8px
+
+  +above(--small)
+    padding: 12px 8px
 
   +above(--extra-large)
-    padding: 12px --gap-s
+    padding: 16px 16px

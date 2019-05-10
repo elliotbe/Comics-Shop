@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
   <header class="header">
     <div class="container header__container">
       <div class="header__wrap-link">
-        <a class="header__link active-link" href="/user/login">Se connecter</a>
+        <a class="header__link active-link" href="/connexion">Connexion</a>
         <a class="header__link active-link" href="/mon-panier">Panier<br><?= getBasketCount() ?> Items</a>
       </div>
 
@@ -37,9 +37,8 @@
   <main class="main">
 
     <div class="container">
-      <!-- <a href="/mon-panier/tout-supprimer" class="btn btn-primary">Delete basket</a> -->
-      <!-- <a href="/sandbox?page=45" class="btn btn-primary">Sandbox</a> -->
       <?php dump($_SESSION); ?>
+      <?php dump($_POST); ?>
     </div>
 
     <?= $page_content ?>

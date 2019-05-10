@@ -14,7 +14,7 @@
 - modal ✔
 - session and flash message ✔
 - pagination ✔
-- basket
+- basket ✔
 - form class
 - search bar for title
 - icons
@@ -25,3 +25,6 @@
 
 - favicon
 - remove extends in modal styl
+- redo error handling in index.php
+  https://www.tutorialspoint.com/php/php_function_set_exception_handler.htm
+- remove loadModel and refactor

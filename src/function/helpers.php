@@ -121,3 +121,7 @@ function parseFloat(float $number) :string {
   // return str_replace('.', ',', $number);
   return str_replace('.', ',', sprintf('%0.2f', $number));
 }
+
+function generateToken(int $length = 128) :string {
+  return substr(hash('sha512', (string)rand()), 0, $length);
+}

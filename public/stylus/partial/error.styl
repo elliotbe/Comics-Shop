@@ -12,16 +12,20 @@
       "gif text" \
       "gif btn"
 
-    .error__title, .error__text, .error__gif
-      margin: 0
+
+
+.error__title, .error__text, .error__gif
+  +above(--medium)
+    margin: 0
+
 
 
 .error__title
   font-family: --oleo-script
-  line-height: 1
   grid-area: title
   color: --red
   text-decoration: underline
+  margin-bottom: --gap-m
 
 
 
@@ -34,9 +38,11 @@
   display: block
 
 
+
 .error__text
   grid-area: text
   font-weight: bold
+
 
 
 .error__container > .btn

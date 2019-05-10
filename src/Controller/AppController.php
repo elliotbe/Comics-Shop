@@ -4,6 +4,7 @@ namespace App\Controller;
 
 class AppController extends Controller {
 
+  // TODO erase
   public function initialize() {
     ob_start();
     require(ROOT . '/extra/init-db.php');

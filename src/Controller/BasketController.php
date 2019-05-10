@@ -17,7 +17,7 @@ class BasketController extends Controller {
 
   public function add(int $id) {
     \App::basket()->addToBasket($id);
-    $this->session->setFlash('success', "L'article à bien été ajouté.");
+    \App::session()->setFlash('success', "L'article à bien été ajouté.");
     sendBack();
   }
 

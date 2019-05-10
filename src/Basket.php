@@ -2,40 +2,35 @@
 declare(strict_types = 1);
 namespace App;
 
-
-
 use App\Model\Model;
+
 
 class Basket {
 
-  private $auth;
-  private $session;
   private $product_model;
   private $basket_model;
   private $basket_data;
-  private $basket_db = [];
-  private $user_id;
+  private $basket_db;
 
-  public function __construct(Auth $auth, Session $session, Model $product_model, Model $basket_model) {
-    $this->auth = $auth;
-    $this->session = $session;
+  public function __construct(Model $product_model, Model $basket_model) {
     $this->product_model = $product_model;
     $this->basket_model = $basket_model;
-    $this->basket_data = $this->session->get('basket');
+    $this->basket_data = \App::session()->get('basket');
 
-    if ($this->auth->isLoggedIn()) {
-      $this->user_id = $this->auth->getUserId();
+    \App::session()->setFlash('debug', 'basket class called()');
+
+    if (\App::auth()->isLoggedIn()) {
       $this->basket_db = $this->getBasketFromDb();
     }
   }
 
   public function __destruct() {
-    $this->session->set('basket', $this->basket_data);
-    if ($this->auth->isLoggedIn() && $this->basket_db !== $this->basket_data) {
-      $this->basket_model->delete($this->user_id, 'user');
+    \App::session()->set('basket', $this->basket_data);
+    if (\App::auth()->isLoggedIn() && $this->basket_db !== $this->basket_data) {
+      $this->basket_model->delete(\App::auth()->getUserId(), 'user');
       foreach ($this->getBasketQtty() as $product_id => $qtty) {
         $this->basket_model->upsert([
-          'user_id' => $this->user_id,
+          'user_id' => \App::auth()->getUserId(),
           'product_id' => $product_id,
           'quantity' => $qtty
           ]);
@@ -92,7 +87,7 @@ class Basket {
   }
 
   private function getBasketFromDb() :array {
-    $data = $this->basket_model->getByUser($this->user_id);
+    $data = $this->basket_model->getByUser(\App::auth()->getUserId());
     $basket_db = [];
     foreach ($data as $product) {
       $to_push = array_fill(0, (int)$product->quantity, (int)$product->product_id);

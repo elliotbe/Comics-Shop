@@ -42,14 +42,16 @@ class App {
 
   public static function auth() :Auth {
     if (is_null(self::$auth)) {
-      self::$auth = new Auth();
+      self::$auth = new Auth(self::session());
     }
     return self::$auth;
   }
 
   public static function basket() :Basket {
     if (is_null(self::$basket)) {
-      self::$basket = new Basket(self::auth(), self::session(), self::getModel('Product'), self::getModel('Basket'));
+      $product_model = self::getModel('Product');
+      $basket_model = self::getModel('Basket');
+      self::$basket = new Basket($product_model, $basket_model);
     }
     return self::$basket;
   }

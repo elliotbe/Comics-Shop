@@ -22,9 +22,9 @@ class Database {
     }
   }
 
-  public function __destruct() {
-    $this->pdo = null;
-  }
+  // public function __destruct() {
+  //   $this->pdo = null;
+  // }
 
   public function getPdo() :\PDO {
     return $this->pdo;

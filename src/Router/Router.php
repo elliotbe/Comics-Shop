@@ -9,7 +9,7 @@ class Router {
   private $named_routes = [];
 
   public function __construct(string $url) {
-    $this->url = $url;
+    $this->url = parse_url($url, PHP_URL_PATH);
   }
 
   public function get(string $path, $callback, string $name = null) :Route {
@@ -18,21 +18,6 @@ class Router {
 
   public function post(string $path, $callback, string $name = null) :Route {
     return $this->add($path, $callback, $name, 'POST');
-  }
-
-  public function add(string $path, $callback, ?string $name, string $method) :Route {
-    $route = new Route($path, $callback);
-    $this->routes[$method][] = $route;
-
-    if (is_string($callback) && is_null($name)) {
-      $name = $callback;
-    }
-
-    if ($name) {
-      $this->named_routes[$name] = $route;
-    }
-
-    return $route;
   }
 
   public function run() {
@@ -55,6 +40,21 @@ class Router {
     }
 
     return $this->named_routes[$name]->getUrl($params);
+  }
+
+  private function add(string $path, $callback, ?string $name, string $method) :Route {
+    $route = new Route($path, $callback);
+    $this->routes[$method][] = $route;
+
+    if (is_string($callback) && is_null($name)) {
+      $name = $callback;
+    }
+
+    if ($name) {
+      $this->named_routes[$name] = $route;
+    }
+
+    return $route;
   }
 
 }

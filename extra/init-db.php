@@ -10,7 +10,7 @@ $db_user = App::config()->get('DB_USER');
 $db_pass = App::config()->get('DB_PASS');
 $db = new DatabaseSchema($db_host, null, $db_user, $db_pass);
 
-$db->query("DROP DATABASE `$db_name`");
+// $db->query("DROP DATABASE `$db_name`");
 
 $db_exists = !(bool)$db->createDatabase($db_name)->rowCount();
 if ($db_exists) {
@@ -106,7 +106,7 @@ $db->addTable('user', [
   $db->addColumn('password', 'VARCHAR', '255', 'NOT NULL UNIQUE'),
   $db->addColumn('first_name', 'VARCHAR', '60'),
   $db->addColumn('last_name', 'VARCHAR', '60'),
-  $db->addColumn('adress', 'VARCHAR', '255'),
+  $db->addColumn('address', 'VARCHAR', '255'),
   $db->addColumn('zip_code', 'VARCHAR', '20'),
   $db->addColumn('city', 'VARCHAR', '60'),
   $db->addColumn('registred_at', 'DATETIME'),
@@ -114,29 +114,27 @@ $db->addTable('user', [
   $db->addColumn('reseted_at', 'DATETIME'),
   $db->addColumn('reset_token', 'VARCHAR', '60'),
   $db->addColumn('remember_token', 'VARCHAR', '60'),
-  $db->addColumn('privilege', 'VARCHAR', '60', 'NOT NULL'),
+  $db->addColumn('privilege', 'VARCHAR', '60', "NOT NULL DEFAULT 'user'"),
 ]);
 printLine("Create table 'user'");
 
 $user_model = App::getModel('User')->upsert([
   'email' => 'elbelet@gmail.com',
-  'password' => 'azerty',
-  'privilege' => 'admin'
+  'password' => \App::auth()->hashPassword('azerty'),
+  'privilege' => 'admin',
+  'registration_token' => generateToken(60)
 ]);
 $user_model = App::getModel('User')->upsert([
   'email' => 'sergentgarcia@yahoo.it',
-  'password' => 'azerty2',
-  'privilege' => 'user'
+  'password' => \App::auth()->hashPassword('azerty'),
 ]);
 $user_model = App::getModel('User')->upsert([
   'email' => 'pierpoljak@libertysurf.fr',
-  'password' => 'azerty3',
-  'privilege' => 'user'
+  'password' => \App::auth()->hashPassword('azerty'),
 ]);
 $user_model = App::getModel('User')->upsert([
   'email' => 'mrrobot@fucksociety.com',
-  'password' => 'azerty4',
-  'privilege' => 'user'
+  'password' => \App::auth()->hashPassword('azerty'),
 ]);
 
 $db->addTable('message', [

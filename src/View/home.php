@@ -1,4 +1,6 @@
-<?php require('partial/flash-message.php') ?>
+<div class="container">
+  <?php require('partial/flash-message.php') ?>
+</div>
 
 <div class="container thumbnail__container">
 

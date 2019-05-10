@@ -29,7 +29,7 @@ class Pager {
     echo $this->getPageNumber(1);
 
     if ($this->current_page > ($this->range + 1)) {
-      echo $this->getSeparator('«');
+      echo $this->getSeparator('…');
     }
 
     foreach (range(1, $this->number_of_page) as $page) {
@@ -42,7 +42,7 @@ class Pager {
     };
 
     if ($this->current_page < ($this->number_of_page - $this->range)) {
-      echo $this->getSeparator('»');
+      echo $this->getSeparator('…');
     }
 
     // last page

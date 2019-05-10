@@ -1,14 +1,16 @@
 .flash-msg
-  padding: --gap-s
-  padding-right: --gap-l
+  padding: --gap-s --gap-l --gap-s --gap-s
   color: #fff
   margin: 0 auto
-  border-radius: 255px 25px 225px 25px/25px 225px 25px 255px
+  border-radius: --border-radius
   border: 2px solid transparent
   position: relative
   font-weight: 600
-  margin-bottom: --gap-s
+  margin-bottom: --gap-xs
   font-size: rem(14px)
+
+  &:last-of-type
+    margin-bottom: --gap-l
 
 
 .flash-msg__success
@@ -36,3 +38,9 @@
   font-size: 24px
   line-height: 1
   font-family: 'Comic Sans MS', cursive
+
+
+
+.flash-msg__link
+  font-weight: 600
+  text-decoration: underline

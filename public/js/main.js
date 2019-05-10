@@ -1,43 +1,35 @@
-const modal_wrap = document.querySelector('.modal__wrap')
-const modal_cover = document.querySelector('.modal__cover')
-const modal = document.querySelector('.modal')
-const modal_spinner = `
-  <div class="modal__container__spinner">
-    <div class="modal__spinner">
-      <div class="rect1"></div>
-      <div class="rect2"></div>
-      <div class="rect3"></div>
-      <div class="rect4"></div>
-      <div class="rect5"></div>
-    </div>
-  </div>
-`
-
-window.onload = main()
-
 function openModal(url) {
-  modal_cover.classList.remove('modal__cover-hide')
-  modal.classList.remove('modal-hide')
-  modal.innerHTML = modal_spinner
+  document.querySelector('.modal__cover').classList.remove('modal__cover-hide')
+  document.querySelector('.modal').classList.remove('modal-hide')
+  document.querySelector('.modal').innerHTML = `
+    <div class="modal__container__spinner">
+      <div class="modal__spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+  `
   fetch(url)
     .then(response => response.text())
     .then(data => {
-      modal.innerHTML = data
+      document.querySelector('.modal').innerHTML = data
     })
 }
 
 function closeModal() {
-  modal_cover.classList.add('modal__cover-hide')
-  modal.classList.add('modal-hide')
+  document.querySelector('.modal__cover').classList.add('modal__cover-hide')
+  document.querySelector('.modal').classList.add('modal-hide')
 }
 
-function closeFlashMsg(self) {
-  self.parentElement.classList.add('hide')
+function closeFlashMsg(closeBtn) {
+  return closeBtn.parentNode.remove()
 }
 
-function main() {
-  document.querySelector('body').classList.remove('preload')
-  isActiveLink()
+function validateField(input) {
+  input.classList.add('input--on-blur')
 }
 
 function isActiveLink() {
@@ -46,3 +38,10 @@ function isActiveLink() {
     link.href === path_name && (link.className += ' active')
   })
 }
+
+function main() {
+  document.querySelector('body').classList.remove('preload')
+  isActiveLink()
+}
+
+window.onload = main()

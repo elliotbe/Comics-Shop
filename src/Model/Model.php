@@ -24,7 +24,14 @@ class Model {
     return $this->queryModel("SELECT * FROM $this->table ORDER BY {$this->table}_id")->fetchAll();
   }
 
-  public function getOne($id) :Entity {
+
+  /**
+   * Return a single row from the database by id
+   * @param integer $id
+   * @return Entity
+   */
+
+  public function getOne(int $id) :Entity {
     return $this->queryModel(
       "SELECT * FROM $this->table WHERE {$this->table}_id = ? LIMIT 1",
       [$id]

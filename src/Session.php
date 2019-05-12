@@ -9,10 +9,7 @@ class Session {
       'name' => 'comics-shop_ssid',
       'save_path' => ROOT . 'extra/session_storage/'
       ]);
-    setcookie(session_name(), session_id(), time() + 1200, '/');
-
-    $this->get('flash') !== null ?: $this->set('flash', []);
-    $this->get('basket') !== null ?: $this->set('basket', []);
+    Cookie::set(session_name(), session_id(), 1200);
   }
 
   public function set(string $key, $value) {
@@ -23,16 +20,16 @@ class Session {
     return $_SESSION[$key] ?? null;
   }
 
-  public function setFlash(string $type, string $message) :void {
+  public function setFlash(string $type, $message) :void {
     $_SESSION['flash'][$type] = $message;
   }
 
   public function getFlash() :array {
-    return $this->get('flash');
+    return $_SESSION['flash'] ?? [];
   }
 
   public function removeFlash() :void {
-    $this->set('flash', []);
+    $_SESSION['flash'] = [];
   }
 
 }

@@ -1,24 +1,24 @@
 <div class="container form__container">
-  <?php require(__DIR__ . '/../partial/flash-message.php') ?>
+  <?php require(ROOT . 'src/View/partial/flash-message.php') ?>
 
   <h2 class="form__title">Connexion</h2>
   <form class="form" action="" method="POST">
 
-    <?php require(__DIR__ . '/../partial/error-message.php') ?>
+    <?php require(ROOT . 'src/View/partial/error-message.php') ?>
 
     <?= $form->input('email', null, [
-      'type' => 'email',
+      // 'type' => 'email',
       'placeholder' => 'mrrobot@fsociety.com',
       'autocomplete' => 'username-email',
-      'required',
+      // 'required',
     ]) ?>
 
     <?= $form->input('password', 'Mot de passe', [
       'type' => 'password',
       'placeholder' => '●●●●●●',
-      'required',
+      // 'required',
       'autocomplete' => 'current-password',
-      'minlength' => '4'
+      // 'minlength' => '4'
     ]) ?>
 
     <div class="form__footer">
@@ -29,7 +29,7 @@
       <div class="form__footer-text">
         Pas encore inscrit ? <a class="form__link" href="/inscription">Inscription</a>
         <br>
-        Mot de passe oubliée ? <a class="form__link" href="/reset">Réinitialiser</a>
+        Mot de passe oubliée ? <a class="form__link" href="/oubli-du-mot-de-passe">Réinitialiser</a>
       </div>
 
       <div class="form__btn-wrap">

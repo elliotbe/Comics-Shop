@@ -77,10 +77,12 @@ function lastPageUrl() :string {
 
 function redirect(string $url) :void {
   header("Location: $url");
+  die();
 }
 
 function sendBack() :void {
   redirect(lastPageUrl());
+  die();
 }
 
 function getRandomGif() :string {
@@ -114,11 +116,11 @@ function camelToSnake(string $name) {
 }
 
 function getBasketCount() :int {
-    return sizeof(App::session()->get('basket')) ?? 0;
+    $basket = App::session()->get('basket') ?? [];
+    return sizeof($basket);
 }
 
 function parseFloat(float $number) :string {
-  // return str_replace('.', ',', $number);
   return str_replace('.', ',', sprintf('%0.2f', $number));
 }
 

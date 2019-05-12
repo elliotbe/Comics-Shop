@@ -13,7 +13,17 @@
   <header class="header">
     <div class="container header__container">
       <div class="header__wrap-link">
-        <a class="header__link active-link" href="/connexion">Connexion</a>
+
+        <?php if (\App::auth()->isAdmin()): ?>
+          <a class="header__link active-link" href="/admin">Admin</a>
+        <?php endif ?>
+        <?php if (\App::auth()->isLoggedIn()): ?>
+          <a class="header__link active-link" href="/mon-compte">Mon Compte</a>
+          <a class="header__link active-link" href="/deconnexion">Logout</a>
+        <?php else: ?>
+          <a class="header__link active-link" href="/connexion">Connexion</a>
+        <?php endif ?>
+
         <a class="header__link active-link" href="/mon-panier">Panier<br><?= getBasketCount() ?> Items</a>
       </div>
 
@@ -37,6 +47,7 @@
   <main class="main">
 
     <div class="container">
+      <a class="btn btn-secondary" href="/sandbox">Sandbox</a>
       <?php dump($_SESSION); ?>
       <?php dump($_POST); ?>
     </div>

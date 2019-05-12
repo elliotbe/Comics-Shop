@@ -45,8 +45,8 @@ class Database {
     }
   }
 
-  public function lastId() :string {
-    return $this->pdo->lastInsertId();
+  public function lastId() :int {
+    return (int)$this->pdo->lastInsertId();
   }
 
 }

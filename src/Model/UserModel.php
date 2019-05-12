@@ -17,4 +17,14 @@ class UserModel extends Model {
   }
 
 
+  /**
+   * Return the user_id of the last user inserted into the database
+   * @return integer
+   */
+
+  public function getLastId() :int {
+    return $this->db->lastId();
+  }
+
+
 }

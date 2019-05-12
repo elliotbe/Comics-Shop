@@ -8,10 +8,11 @@ require('vendor/autoload.php');
 
 use App\Router\Router;
 
+
 // Register Whoops to pretty print error message
 if (App::config()->get('ENV') === 'development') {
   $whoops = new \Whoops\Run;
-  $whoops->pushHandler(new \Whoops\Handler\PlainTextHandler());
+  $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
   $whoops->register();
 }
 
@@ -23,33 +24,43 @@ if ($is_cli_server && file_exists(__DIR__ . $url_path) && $is_index === false) {
   return false;
 }
 
-// App::auth()->logout();
-//  if (App::auth()->isLoggedIn()) {
-//    sendBack();
-//  }
-// App::auth()->login(4);
-
 // Or proceed normally
 $router = new Router($_SERVER['REQUEST_URI']);
 
+
+// Product Controller
 $router->get('/', 'Product#all');
 $router->get('/modal/:id', 'Product#modal');
 $router->get('/:column/:id-:slug', 'Product#byColumn')->with('id', '[0-9]+');
 
+
+// Basket Controller
 $router->get('/mon-panier', 'Basket#show');
 $router->get('/mon-panier/ajouter-:id', 'Basket#add');
 $router->get('/mon-panier/retirer-:id', 'Basket#remove');
 $router->get('/mon-panier/supprimer-:id', 'Basket#delete');
 
-// TODO
+
+// User controller
 $router->get('/connexion', 'User#login');
 $router->post('/connexion', 'User#login');
 
 $router->get('/inscription', 'User#register');
 $router->post('/inscription', 'User#register');
 
-$router->get('/reset', 'User#passwordReset');
-$router->get('/compte-utilisateur', 'User#accout');
+$router->get('/mon-compte', 'User#account');
+
+$router->get('/confirmation', 'User#confirm');
+$router->get('/renvoi-confirmation', 'User#resendConfirm');
+
+$router->get('/oubli-du-mot-de-passe', 'User#forgetPassword');
+$router->post('/oubli-du-mot-de-passe', 'User#forgetPassword');
+
+$router->get('/reinitialisation-du-mot-de-passe', 'User#resetPassword');
+$router->post('/reinitialisation-du-mot-de-passe', 'User#resetPassword');
+
+$router->get('/deconnexion', 'User#logout');
+
 
 // TODO
 $router->get('/admin', 'Admin#dashboard');
@@ -58,12 +69,15 @@ $router->get('/admin/order', 'Admin#order');
 $router->get('/admin/message', 'Admin#message');
 $router->get('/admin/user', 'Admin#user');
 
+
 // TODO remove it
+// App Controller
 $router->get('/sandbox', 'App#sandbox');
 $router->post('/sandbox', 'App#sandbox');
 $router->get('/initialize', 'App#initialize');
 
 $router->get('/:fourOhFour', 'App#fourOhFour')->with('fourOhFour', '.+');
+
 
 // TODO ykit
 if (App::config()->get('ENV') === 'development') {

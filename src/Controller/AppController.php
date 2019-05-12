@@ -14,6 +14,7 @@ class AppController extends Controller {
   }
 
   public function sandbox() {
+    \App::auth()->restrictNotAdmin();
     $this->render('sandbox', [], 'Sandbox', 'blank');
   }
 

@@ -10,7 +10,7 @@ $db_user = App::config()->get('DB_USER');
 $db_pass = App::config()->get('DB_PASS');
 $db = new DatabaseSchema($db_host, null, $db_user, $db_pass);
 
-// $db->query("DROP DATABASE `$db_name`");
+$db->query("DROP DATABASE `$db_name`");
 
 $db_exists = !(bool)$db->createDatabase($db_name)->rowCount();
 if ($db_exists) {
@@ -122,19 +122,25 @@ $user_model = App::getModel('User')->upsert([
   'email' => 'elbelet@gmail.com',
   'password' => \App::auth()->hashPassword('azerty'),
   'privilege' => 'admin',
-  'registration_token' => generateToken(60)
+  'registration_token' => null,
+  'registred_at' => date("Y-m-d H:i:s")
 ]);
 $user_model = App::getModel('User')->upsert([
   'email' => 'sergentgarcia@yahoo.it',
   'password' => \App::auth()->hashPassword('azerty'),
+  'registration_token' => null,
+  'registred_at' => date("Y-m-d H:i:s")
 ]);
 $user_model = App::getModel('User')->upsert([
   'email' => 'pierpoljak@libertysurf.fr',
   'password' => \App::auth()->hashPassword('azerty'),
+  'registration_token' => null,
+  'registred_at' => date("Y-m-d H:i:s")
 ]);
 $user_model = App::getModel('User')->upsert([
   'email' => 'mrrobot@fucksociety.com',
   'password' => \App::auth()->hashPassword('azerty'),
+  'registration_token' => generateToken(60)
 ]);
 
 $db->addTable('message', [
@@ -165,8 +171,8 @@ $db->addTable('basket', [
 ]);
 printLine("Create table 'basket'");
 $db->query('ALTER TABLE basket ADD PRIMARY KEY product_basket_id (user_id, product_id)');
-$db->addForeignKey('product', 'basket');
-$db->addForeignKey('user', 'basket');
+$db->addForeignKey('product', 'basket', 'CASCADE', 'CASCADE');
+$db->addForeignKey('user', 'basket', 'CASCADE', 'CASCADE');
 
 $db->addTable('order_item', [
   $db->addColumn('order_id', 'INT', '8', 'UNSIGNED'),

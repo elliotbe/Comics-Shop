@@ -28,10 +28,10 @@ class Model {
   /**
    * Return a single row from the database by id
    * @param integer $id
-   * @return Entity
+   * @return Entity|false
    */
 
-  public function getOne(int $id) :Entity {
+  public function getOne(int $id) {
     return $this->queryModel(
       "SELECT * FROM $this->table WHERE {$this->table}_id = ? LIMIT 1",
       [$id]

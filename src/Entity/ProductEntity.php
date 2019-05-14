@@ -4,7 +4,7 @@ namespace App\Entity;
 
 class ProductEntity extends Entity {
 
-  private $l10n  = [
+  private $translation  = [
     'author' => 'auteur',
     'category' => 'catégorie',
     'hero' => 'héro',
@@ -58,7 +58,7 @@ class ProductEntity extends Entity {
   public function fieldNotNull(string $field, string $delimiter = 'div', bool $is_link = true) {
     if (isset($this->$field)) {
       $field_id = $field . '_id';
-      $label = $this->l10n[$field];
+      $label = $this->translation[$field];
       if ($is_link) {
         $link_url = generateUrl('Product#byColumn', [
           'column' => $field,

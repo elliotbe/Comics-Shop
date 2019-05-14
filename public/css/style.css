@@ -441,7 +441,6 @@ pre {
   line-height: 1;
   cursor: pointer;
 }
-.btn:first-child,
 .btn:not(:last-child) {
   margin-right: 12px;
 }
@@ -832,8 +831,7 @@ pre {
   font-family: 'Oleo Script', cursive;
   margin: 32px 0 !important;
 }
-.basket__btn-back--single,
-.basket__footer > .btn {
+.basket__btn-back--single {
   font-size: 1.5rem;
 }
 .basket-item {
@@ -892,7 +890,7 @@ pre {
     text-align: left;
     grid-column: span 2;
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 1fr auto;
     grid-template-rows: 1fr min-content;
     grid-auto-flow: dense;
   }
@@ -946,19 +944,24 @@ pre {
 .basket-item__btn-delete {
   padding: 12px 22px;
 }
-.basket__footer {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  justify-items: end;
-  text-align: right;
-}
-.basket__footer .btn-primary {
-  justify-self: start;
-}
 .basket__total-price {
   font-size: 1.5rem;
+  text-align: center;
   margin-bottom: 8px;
-  grid-column: 2;
+}
+@media (min-width: 448px) {
+  .basket__total-price {
+    text-align: right;
+  }
+}
+.basket__btn-wrap {
+  display: flex;
+  justify-content: center;
+}
+@media (min-width: 448px) {
+  .basket__btn-wrap {
+    justify-content: flex-end;
+  }
 }
 .form__title:not(:last-child),
 .msg-error:not(:last-child),
@@ -980,7 +983,10 @@ pre {
   display: grid;
   align-items: center;
 }
-@media (min-width: 448px) {
+.form:not(:last-child) {
+  margin-bottom: 24px;
+}
+@media (min-width: 768px) {
   .form {
     grid-template-columns: max-content 1fr;
     grid-column-gap: 8px;
@@ -991,6 +997,9 @@ pre {
   .form > .label,
   .form > .input {
     grid-column: span 1;
+  }
+  .label {
+    margin-bottom: 12px;
   }
   .label::after {
     content: ' :';
@@ -1021,6 +1030,7 @@ pre {
   padding: 6px 8px;
   border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
   border: 2px solid #081023;
+  line-height: 1.5;
 }
 .input:not([type="checkbox"]):focus {
   outline: 0;
@@ -1074,15 +1084,19 @@ pre {
   color: #1d43a4;
   text-decoration: underline;
 }
-@media (max-width: 448px) {
+@media (max-width: 768px) {
   .form__checkbox-wrap {
     margin-bottom: 8px;
   }
   .form__footer-text {
     margin-bottom: 8px;
   }
+  .form__btn-wrap {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
-@media (min-width: 448px) {
+@media (min-width: 768px) {
   .form__footer {
     display: grid;
     grid-template-columns: auto auto;

@@ -40,6 +40,9 @@ $router->get('/mon-panier/ajouter-:id', 'Basket#add');
 $router->get('/mon-panier/retirer-:id', 'Basket#remove');
 $router->get('/mon-panier/supprimer-:id', 'Basket#delete');
 
+$router->get('/commander', 'Basket#order');
+$router->post('/payer-ma-commande', 'Basket#confirmOrder');
+
 
 // User controller
 $router->get('/connexion', 'User#login');
@@ -49,9 +52,7 @@ $router->get('/inscription', 'User#register');
 $router->post('/inscription', 'User#register');
 
 $router->get('/mon-compte', 'User#account');
-
-$router->get('/confirmation', 'User#confirm');
-$router->get('/renvoi-confirmation', 'User#resendConfirm');
+$router->post('/mon-compte', 'User#account');
 
 $router->get('/oubli-du-mot-de-passe', 'User#forgetPassword');
 $router->post('/oubli-du-mot-de-passe', 'User#forgetPassword');
@@ -59,6 +60,11 @@ $router->post('/oubli-du-mot-de-passe', 'User#forgetPassword');
 $router->get('/reinitialisation-du-mot-de-passe', 'User#resetPassword');
 $router->post('/reinitialisation-du-mot-de-passe', 'User#resetPassword');
 
+$router->post('/changer-de-mot-de-passe', 'User#changePassword');
+$router->post('/supprimer-le-compte', 'User#suppressAccount');
+
+$router->get('/confirmation', 'User#confirm');
+$router->get('/renvoi-confirmation', 'User#resendConfirm');
 $router->get('/deconnexion', 'User#logout');
 
 

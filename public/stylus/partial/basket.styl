@@ -3,10 +3,13 @@
   min-height: 50vh
 
 
+
 .basket__empty-wrap
   min-height: 100%
   margin: auto
   text-align: center
+
+
 
 .basket__title
   font-family: --oleo-script
@@ -15,9 +18,7 @@
 
 
 .basket__btn-back--single
-.basket__footer > .btn
   font-size: rem(24px)
-
 
 
 
@@ -52,12 +53,15 @@
     margin-right: --gap-s
 
 
+
 .basket-item__img
   @extends .thumbnail__img
 
 
+
 .basket-item__price
   @extends .modal__price
+
 
 
 .basket-item__col-2
@@ -67,6 +71,7 @@
     text-align: left
 
 
+
 .basket-item__title
   font-size: rem(20px)
   margin-bottom: --gap-xs
@@ -74,8 +79,10 @@
   text-transform: uppercase
 
 
+
 .basket-item__data
   @extends .modal__data
+
 
 
 .basket-item__col-3
@@ -85,7 +92,7 @@
     text-align: left
     grid-column: span 2
     display: grid
-    grid-template-columns: 180px 1fr
+    grid-template-columns: 1fr auto
     grid-template-rows: 1fr min-content
     grid-auto-flow: dense
 
@@ -127,9 +134,12 @@
   font-weight: 900
 
 
+
+
 .basket-item__btn-less
   margin-right: -14px !important
   z-index: 10
+
 
 
 .basket-item__btn-more
@@ -137,23 +147,26 @@
   z-index: 10
 
 
+
 .basket-item__btn-delete
   @extends .btn-primary
-  // font-size: rem(24px)
   padding: 12px 22px
 
-
-.basket__footer
-  display: grid
-  grid-template-columns: repeat(2, auto)
-  justify-items: end
-  text-align: right
-
-  .btn-primary
-    justify-self: start
 
 
 .basket__total-price
   font-size: rem(24px);
+  text-align: center
   margin-bottom: --gap-xs
-  grid-column: 2
+
+  +above(--small)
+    text-align: right
+
+
+
+.basket__btn-wrap
+  display: flex
+  justify-content: center
+
+  +above(--small)
+    justify-content: flex-end

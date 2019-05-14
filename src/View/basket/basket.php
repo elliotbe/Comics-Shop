@@ -1,4 +1,5 @@
 <div class="container basket__container">
+  <?php require(__DIR__ . '/../partial/flash-message.php') ?>
   <?php if(getBasketCount() === 0): ?>
     <div class="basket__empty-wrap">
       <hgroup class="basket__title">
@@ -33,10 +34,10 @@
 
       </div>
     <?php endforeach ?>
-    <div class="basket__footer">
       <div class="basket__total-price">Total : <strong class="strong"><?= $total_price ?></strong></div>
-      <a href="<?= lastPageUrl() ?>" class="btn btn-primary">Retour</a>
-      <a href="/confirmation" class="btn btn-secondary">Confirmer la commande</a>
-    </div>
+      <div class="basket__btn-wrap">
+        <a href="<?= lastPageUrl() ?>" class="btn btn-primary">Retour</a>
+        <a href="/commander" class="btn btn-secondary">Commander !</a>
+      </div>
   <?php endif ?>
 </div>

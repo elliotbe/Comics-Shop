@@ -1,0 +1,185 @@
+$form__row
+  &:not(:last-child)
+    margin-bottom: 12px
+
+
+
+.form__container
+  @extends $container-standard
+  min-height: 400px
+  padding-bottom: --gap-xl
+
+
+
+.form__title
+  @extends $form__row
+  padding-bottom: 6px
+  border-bottom: 1px solid --light-gray
+  font-family: --oleo-script
+  line-height: 1
+
+
+
+.form
+  display: grid
+  align-items: center
+
+  &:not(:last-child)
+    margin-bottom: 24px
+
++above(--medium)
+  .form
+    grid-template-columns: max-content 1fr
+    grid-column-gap: 8px
+
+  .form > *
+    grid-column: span 2
+
+  .form > .label, .form > .input
+    grid-column: span 1
+
+  .label
+    margin-bottom: 12px
+
+  .label::after
+    content: ' :'
+
+
+
+.msg-error
+  @extends $form__row
+  padding: 12px
+  position: relative
+  font-size: rem(14px)
+  font-weight: 600
+  color: --red
+  background-color: lighten(--red, 80%)
+  border-radius: --border-radius
+  border: 2px solid --red
+
+
+
+.msg-error__list
+  padding-left: 24px
+  margin: 0 0 4px
+
+
+
+.label
+  user-select: none
+
+
+.label__optional
+  font-size: 80%
+  color: --dark-gray
+
+
+
+.input
+  @extends $form__row
+  padding: 6px 8px
+  border-radius: --border-radius;
+  border: 2px solid --dark-blue
+  line-height: 1.5
+
+.input:not([type="checkbox"])
+  &:focus
+    outline: 0
+    box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.25)
+
+
+
+.input--on-blur
+  &:invalid
+    border-color: --red
+
+  &:required:valid
+    border-color: --green
+
+
+
+.input-checkbox
+  position: relative;
+  padding: 0
+  margin: 0
+  margin-left: 18px
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer
+
+
+
+.input-checkbox:before {
+  content: "";
+  position: absolute;
+  left: -1.2em;
+  top: -0.9em;
+  display: inline-block;
+  width: 15px;
+  height: 16px;
+  border: 2px solid #333;
+  border-radius: 2px 8px 2px 4px / 5px 3px 5px 3px;
+}
+
+.input-checkbox:checked:after {
+  content: "x";
+  position: absolute;
+  left: -0.80em;
+  top: -0.70em;
+  font-size: 1.2rem;
+  line-height: 0.5;
+  color: --dark-blue
+}
+
+.input-checkbox:disabled:before {
+  border: 2px solid #aaa;
+}
+
+
+.form__footer
+  @extends $form__row
+
+
+
+.form__footer-text
+  grid-row: span 2
+  font-size: rem(14px)
+  color: --dark-gray
+
+
+
+.form__link
+  color: #1D43A4
+  text-decoration: underline
+
+
+
++below(--medium)
+  .form__checkbox-wrap
+    margin-bottom: 8px
+
+  .form__footer-text
+    margin-bottom: 8px
+
+  .form__btn-wrap
+    display: flex
+    justify-content: flex-end
+
+
++above(--medium)
+  .form__footer
+    display: grid
+    grid-template-columns: auto auto
+
+  .form__checkbox-wrap
+    justify-self: end
+    order: 1
+    margin-bottom: 8px
+
+  .form__btn-wrap
+    grid-column: 2
+    justify-self: end
+    align-self: start
+    display: flex
+    order: 2

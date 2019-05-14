@@ -7,18 +7,18 @@
     <?php require(ROOT . 'src/View/partial/error-message.php') ?>
 
     <?= $form->input('email', null, [
-      // 'type' => 'email',
+      'type' => 'email',
       'placeholder' => 'mrrobot@fsociety.com',
       'autocomplete' => 'username-email',
-      // 'required',
+      'required',
     ]) ?>
 
     <?= $form->input('password', 'Mot de passe', [
       'type' => 'password',
       'placeholder' => '●●●●●●',
-      // 'required',
+      'required',
       'autocomplete' => 'current-password',
-      // 'minlength' => '4'
+      'minlength' => '4'
     ]) ?>
 
     <div class="form__footer">

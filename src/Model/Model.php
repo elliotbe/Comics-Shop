@@ -21,7 +21,7 @@ class Model {
   }
 
   public function getAll() :array {
-    return $this->queryModel("SELECT * FROM $this->table ORDER BY {$this->table}_id")->fetchAll();
+    return $this->queryModel("SELECT * FROM `$this->table` ORDER BY {$this->table}_id")->fetchAll();
   }
 
 
@@ -33,7 +33,7 @@ class Model {
 
   public function getOne(int $id) {
     return $this->queryModel(
-      "SELECT * FROM $this->table WHERE {$this->table}_id = ? LIMIT 1",
+      "SELECT * FROM `$this->table` WHERE {$this->table}_id = ? LIMIT 1",
       [$id]
     )->fetch();
   }
@@ -42,19 +42,19 @@ class Model {
     $stmt_part = $this->getPlaceholders($params);
     if ($id) {
       $params['id'] = $id;
-      return $this->db->query("UPDATE $this->table SET $stmt_part WHERE {$this->table}_id = :id", $params);
+      return $this->db->query("UPDATE `$this->table` SET $stmt_part WHERE {$this->table}_id = :id", $params);
     }
-    return $this->db->query("INSERT INTO $this->table SET $stmt_part", $params);
+    return $this->db->query("INSERT INTO `$this->table` SET $stmt_part", $params);
   }
 
   public function delete(int $id, string $key_name = null) {
   if (is_null($key_name)) {
     $key_name = $this->table;
   }
-  return $this->db->query("DELETE FROM $this->table WHERE {$key_name}_id = :id", ['id' => $id]);
+  return $this->db->query("DELETE FROM `$this->table` WHERE {$key_name}_id = :id", ['id' => $id]);
   }
 
-  protected function queryModel($statement, $params = null) :\PDOStatement {
+  public function queryModel($statement, $params = null) :\PDOStatement {
     $entity = explode('\\', get_called_class());
     $entity = str_replace('Model', 'Entity', end($entity));
     return $this->db->query($statement, $params, 'App\\Entity\\' . $entity);

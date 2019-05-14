@@ -1,2 +1,11 @@
 11/05/19 - 21:16:42	Code 2 : SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting - Line 1775 in /mnt/c/Users/Yoyote/web/Comics-Shop/vendor/phpmailer/phpmailer/src/PHPMailer.php
 11/05/19 - 21:17:50	Code 2 : SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting - Line 1775 in /mnt/c/Users/Yoyote/web/Comics-Shop/vendor/phpmailer/phpmailer/src/PHPMailer.php
+14/05/19 - 23:12:24	Code 42S22 : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'gfdgdfg_id' in 'where clause' - Line 41 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Database/Database.php
+14/05/19 - 23:14:44	Code 0 : Argument 1 passed to App\HTML\Form::__construct() must be of the type array, null given, called in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Controller/BasketController.php on line 44 - Line 9 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/HTML/Form.php
+14/05/19 - 23:15:59	Code 0 : Argument 1 passed to App\HTML\Form::__construct() must be of the type array, null given, called in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Controller/BasketController.php on line 44 - Line 9 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/HTML/Form.php
+13/07/19 - 22:43:59	Code 0 : Class '\App\Controller\AdminController' not found - Line 39 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Router/Route.php
+13/07/19 - 22:46:30	Code 0 : Class '\App\Controller\AdminController' not found - Line 39 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Router/Route.php
+13/07/19 - 22:46:46	Code 0 : Class '\App\Controller\AdminController' not found - Line 39 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Router/Route.php
+13/07/19 - 22:46:49	Code 0 : Class '\App\Controller\AdminController' not found - Line 39 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Router/Route.php
+13/07/19 - 22:46:56	Code 0 : Class '\App\Controller\AdminController' not found - Line 39 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Router/Route.php
+13/07/19 - 22:46:58	Code 0 : Class '\App\Controller\AdminController' not found - Line 39 in /mnt/c/Users/Yoyote/web/Comics-Shop/src/Router/Route.php

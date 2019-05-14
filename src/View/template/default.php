@@ -47,9 +47,9 @@
   <main class="main">
 
     <div class="container">
-      <a class="btn btn-secondary" href="/sandbox">Sandbox</a>
-      <?php dump($_SESSION); ?>
-      <?php dump($_POST); ?>
+      <!-- <a class="btn btn-secondary" href="/sandbox">Sandbox</a> -->
+      <!-- <?php dump($_SESSION); ?> -->
+      <!-- <?php dump($_POST); ?> -->
     </div>
 
     <?= $page_content ?>

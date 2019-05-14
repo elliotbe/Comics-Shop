@@ -10,7 +10,7 @@ $db_user = App::config()->get('DB_USER');
 $db_pass = App::config()->get('DB_PASS');
 $db = new DatabaseSchema($db_host, null, $db_user, $db_pass);
 
-$db->query("DROP DATABASE `$db_name`");
+// $db->query("DROP DATABASE `$db_name`");
 
 $db_exists = !(bool)$db->createDatabase($db_name)->rowCount();
 if ($db_exists) {
@@ -120,27 +120,10 @@ printLine("Create table 'user'");
 
 $user_model = App::getModel('User')->upsert([
   'email' => 'elbelet@gmail.com',
-  'password' => \App::auth()->hashPassword('azerty'),
+  'password' => \App::auth()->hashPassword('1234'),
   'privilege' => 'admin',
   'registration_token' => null,
   'registred_at' => date("Y-m-d H:i:s")
-]);
-$user_model = App::getModel('User')->upsert([
-  'email' => 'sergentgarcia@yahoo.it',
-  'password' => \App::auth()->hashPassword('azerty'),
-  'registration_token' => null,
-  'registred_at' => date("Y-m-d H:i:s")
-]);
-$user_model = App::getModel('User')->upsert([
-  'email' => 'pierpoljak@libertysurf.fr',
-  'password' => \App::auth()->hashPassword('azerty'),
-  'registration_token' => null,
-  'registred_at' => date("Y-m-d H:i:s")
-]);
-$user_model = App::getModel('User')->upsert([
-  'email' => 'mrrobot@fucksociety.com',
-  'password' => \App::auth()->hashPassword('azerty'),
-  'registration_token' => generateToken(60)
 ]);
 
 $db->addTable('message', [

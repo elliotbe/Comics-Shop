@@ -15,16 +15,25 @@
 - session and flash message ✔
 - pagination ✔
 - basket ✔
-- form class
-- search bar for title
-- icons
+- remodelize db ✔
+- form class ✔
+- login/register ✔
 
-- remodelize db
-- login/register (js too)
+- account page
+- validator account page
+- order page
+- confirmed order
+-last order account
 - backoffice
 
+- icons
 - favicon
 - remove extends in modal styl
 - redo error handling in index.php
+- search bar for title
   https://www.tutorialspoint.com/php/php_function_set_exception_handler.htm
-- remove loadModel and refactor
+
+
+
+
+- fetch upsert ?

@@ -76,13 +76,12 @@ function lastPageUrl() :string {
 }
 
 function redirect(string $url) :void {
-  header("Location: $url");
+  header("Location: $url", true, 303);
   die();
 }
 
 function sendBack() :void {
   redirect(lastPageUrl());
-  die();
 }
 
 function getRandomGif() :string {

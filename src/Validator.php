@@ -84,7 +84,7 @@ class Validator {
       return true;
     }
     if ($field === 'email') {
-      $this->errors[] = "Vous possédez déja un compte à l'adresse {$this->data[$field]}";
+      $this->errors[] = "Il existe déja un compte avec l'adresse {$this->data[$field]}";
     } else {
       $label = $this->label[$field] ?? ucfirst($field);
       $this->errors[] = "Le champ $label n'est pas unique";
